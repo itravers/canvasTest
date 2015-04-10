@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  script(src='/javascripts/jquery.min.js')
+  script(src='/javascripts/MenuItem.js')
+  script(src='/javascripts/NetworkCanvas.js')
+  script(src='/javascripts/global.js')
+  h1= title
+  p Welcome to #{title}
+  |   
+  canvas#canvas
