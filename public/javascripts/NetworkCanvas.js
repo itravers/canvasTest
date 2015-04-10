@@ -20,8 +20,11 @@ NetworkCanvas.prototype = {
 		},    
 		initializeMenu:function(){
 			var menuSize = 100;
-			var menuItem = new MenuItem(this.ctx.canvas.width-menuSize, 0, menuSize, menuSize);
-			this.setMenuItem(menuItem);
+			for(i = 0; i < 4; i++){
+				var menuItem = new MenuItem(this.ctx.canvas.width-menuSize, 0+(i*menuSize), menuSize, menuSize);
+				this.setMenuItem(menuItem);
+			}
+			
 		},
 		setMenuItem:function (menuItem){        
 			this.menu.push(menuItem);
