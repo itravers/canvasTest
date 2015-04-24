@@ -44,8 +44,7 @@ block content
           th location
           th totalPower
           th interimPowers
-          th parentNodeID
-          th childrenNodeIDs
+          th neighbours
           th calculated
           th belongsToLine
       tBody
@@ -60,9 +59,7 @@ block content
             td
               =JSON.stringify(node.interimPower)
             td
-              =node.parent
-            td
-              =JSON.stringify(node.children)
+              =JSON.stringify(node.neighbours)
             td
               =node.calculated
             td
@@ -90,3 +87,23 @@ block content
               =line.dParam
             td
               =line.kParam
+  div
+    table
+      caption Power Consumers List
+      thead
+        tr
+          th _id
+          th nodeID
+          th consumptionPerSec
+          th suppliedPower
+      tBody
+        each consumer, i in powerConsumersList
+          tr
+            td 
+              =consumer._id
+            td 
+              =consumer.nodeID
+            td
+              =consumer.consumptionPerSec
+            td
+              =consumer.suppliedPower
