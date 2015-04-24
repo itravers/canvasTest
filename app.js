@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 //New Code
 var mongo = require('mongodb');
 var monk = require('monk');
-var db = monk('localhost:27017/canvasTest');
+var db = monk('172.242.255.38:27017/canvasTest');
 //var db = monk('canvasTest:micheale@ds061308.mongolab.com:61308/canvastest');
 //mongodb://<dbuser>:<dbpassword>@ds061308.mongolab.com:61308/canvastest
 
