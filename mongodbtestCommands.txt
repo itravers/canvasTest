@@ -255,16 +255,43 @@ node12 = {
 }
 db.nodes.insert(node12)
 
+db.nodes.update(
+    { _id: "node3" },
+    {
+      $push: {
+        neighbours: "node12"
+      }
+    }
+)
+
+db.nodes.update(
+    { _id: "node4" },
+    {
+      $push: {
+        neighbours: "node12"
+      }
+    }
+)
+
 bat1 = {
 		_id : "bat1",
 		"state" : "consumer",
-		"node" : "node12",
+		"nodeID" : "node12",
 		"powerBankLimit" : 200,
 		"powerPerSecond_Supplied" : 10,
 		"powerPerSecond_Received" : 10
 }
 
 db.batteries.insert(bat1)
+
+resistor1 = {
+		_id : "resistor1",
+		"tLineID" : "transmissionLine1"
+}
+
+db.resistors.insert(resistor1)
+
+
 
 
 
