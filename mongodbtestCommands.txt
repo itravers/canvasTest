@@ -1,0 +1,96 @@
+
+
+node1 = {
+		_id : "node1",
+		"location" : [{"x": 100, "y": 100}],
+		"totalPower" : 0,
+		"interimPower" :[],
+		"parent" : "none",
+		"children" : [],
+		"calculated" : false,
+		"belongsToLine" : false
+}
+
+db.nodes.insert(node1)
+
+
+powerSupply = {
+	_id : "powerSupply1",
+	"totalPower" : 100000,
+	"powerPerSecond" : 10,
+	"nodeID" : "node1"
+}
+db.powerSupplies.insert(powerSupply)
+
+
+node2 = {
+	_id : "node2",
+	"location" : [{"x": 100, "y": 100}],
+		"totalPower" : 0,
+		"interimPower" :[],
+		"parent" : "node1",
+		"children" : [],
+		"calculated" : false,
+		"belongsToLine" : true
+}
+
+db.nodes.insert(node2);
+
+db.nodes.update(
+    { _id: "node1" },
+    {
+      $push: {
+        children: "node2"
+      }
+    }
+)
+
+node3 = {
+	_id : "node3",
+	"location" : [{"x": 200, "y": 200}],
+		"totalPower" : 0,
+		"interimPower" :[],
+		"parent" : "none",
+		"children" : [],
+		"calculated" : false,
+		"belongsToLine" : true
+}
+
+db.nodes.insert(node3);
+
+transmissionLine = {
+	_id : "transLine1",
+	"nodeAID" : "node2",
+	"nodeBID" : "node3",
+	"dParam" : 3,
+    "kParam" : 2000	
+}
+
+db.transmissionLines.insert(transmissionLine)
+
+//db.system.js.save(
+//   {
+//     _id: "powerTransmissionFunction",
+//     value : function(origPower, S, D, L, K) { return ((origPower*S)/(D^(L/K))); }
+//   }
+//)
+
+
+
+
+
+//db.nodes.update(
+//    { _id: "node2" },
+//    {
+//      $set: {
+//        parent: "node1"
+//      }
+//    }
+//)
+
+
+
+
+
+
+

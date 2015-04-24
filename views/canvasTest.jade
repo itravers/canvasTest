@@ -1,6 +1,9 @@
 extends layout
 
 block content
+  script(type='text/javascript').
+    var nodesList =!{JSON.stringify(nodesList)}
+    var powerSuppliesList =!{JSON.stringify(powerSuppliesList)}
   script(src='/javascripts/jquery.min.js')
   script(src='/javascripts/MenuItem.js')
   script(src='/javascripts/NetworkCanvas.js')
@@ -9,3 +12,79 @@ block content
   p Welcome to #{title}
   |   
   canvas#canvas
+ 
+  div
+    table
+      caption Power Supplies List
+      thead
+        tr
+          th _id
+          th totalPower
+          th powerPerSecond
+          th nodeID
+      tBody
+        each supply, i in powerSuppliesList
+          tr
+            td 
+              =supply._id
+            td 
+              =supply.totalPower
+            td 
+              =supply.powerPerSecond
+            td 
+              =supply.nodeID
+  div
+    table
+      caption Nodes List
+      thead
+        tr
+          th _id
+          th location
+          th totalPower
+          th interimPowers
+          th parentNodeID
+          th childrenNodeIDs
+          th calculated
+          th belongsToLine
+      tBody
+        each node, i in nodesList
+          tr
+            td 
+              =node._id
+            td 
+              =JSON.stringify(node.location)
+            td
+              =node.totalPower
+            td
+              =JSON.stringify(node.interimPower)
+            td
+              =node.parent
+            td
+              =JSON.stringify(node.children)
+            td
+              =node.calculated
+            td
+              =node.belongsToLine
+  div
+    table
+      caption T.Line List
+      thead
+        tr
+          th _id
+          th nodeAID
+          th nodeBID
+          th dParam
+          th kParam
+      tBody
+        each line, i in transmissionLinesList
+          tr
+            td 
+              =line._id
+            td 
+              =line.nodeAID
+            td
+              =line.nodeBID
+            td
+              =line.dParam
+            td
+              =line.kParam

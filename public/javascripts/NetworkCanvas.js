@@ -1,5 +1,9 @@
 //Objects
-function NetworkCanvas (canvas, width, height){   
+function NetworkCanvas (canvas, width, height){
+	//alert(JSON.stringify( nodesList ));
+	//alert(nodesList[0]["_id"]);
+	//alert(powerSuppliesList[0]["_id"]);
+	
 	this.canvas = canvas;
 	this.ctx = canvas.getContext("2d");
 	this.setupCanvas(width, height);
@@ -30,11 +34,43 @@ NetworkCanvas.prototype = {
 			this.menu.push(menuItem);
 		},
 		draw:function(ctx){
-			this.drawMenu(ctx);
+			//alert(nodesList);
+			//this.drawMenu(ctx);
+			for(var i = 0; i < nodesList.length; i++){
+				this.drawNode(ctx, nodesList[i]);
+			}
+			for(var i = 0; i < powerSuppliesList.length; i++){
+				this.drawPowerSupply(ctx, powerSuppliesList[i]);
+			}
+			
 		},
 		drawMenu:function(ctx){
-			for(i = 0; i < this.menu.length; i++){
+			for(var i = 0; i < this.menu.length; i++){
 				this.menu[i].draw(ctx);
 			}
+		},
+		drawNode:function(ctx, node){
+			var loc = {x : node["location"]["x"], y : node["location"]["y"]};
+			ctx.strokeStyle = 'red';
+			ctx.beginPath();
+			ctx.arc(loc.x,loc.y,10,0,2*Math.PI);
+			ctx.stroke();
+			ctx.strokeStyle = 'blue';
+		}
+		,
+		drawPowerSupply:function(ctx, supply){
+			alert("drawPowerSupply");
+			var nodeID = supply["nodeID"];
+			var node = nodesList.filter(function(v) {
+			    return v._id === nodeID; // filter out appropriate one
+			})[0];
+			var loc = {x : node["location"]["x"], y : node["location"]["y"]};
+			
+			var style = ctx.strokeStyle;
+			ctx.strokeStyle = 'green';
+			ctx.beginPath();
+			ctx.arc(loc.x,loc.y,30,0,2*Math.PI);
+			ctx.stroke();
+			ctx.strokeStyle = style;
 		}
 }

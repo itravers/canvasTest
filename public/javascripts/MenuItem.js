@@ -12,8 +12,10 @@ MenuItem.prototype = {
 		},
 		draw:function(ctx){
 			//alert("draw " + ctx.canvas.width);
+			var oldStyle = ctx.strokeStyle;
 			ctx.strokeStyle = this.backgroundColor;
 			ctx.rect(this.location[0], this.location[1], this.size[0], this.size[1]);
 			ctx.stroke();
+			ctx.strokeStyle = oldStyle;
 		}
 }
