@@ -48,6 +48,9 @@ NetworkCanvas.prototype = {
 			for(var i = 0; i < powerConsumersList.length; i++){
 				this.drawPowerConsumer(ctx, powerConsumersList[i]);
 			}
+			for(var i = 0; i < batteriesList.length; i++){
+				this.drawBattery(ctx, batteriesList[i]);
+			}
 			
 			
 		},
@@ -113,6 +116,21 @@ NetworkCanvas.prototype = {
 			ctx.strokeStyle = 'BLUE';
 			ctx.beginPath();
 			ctx.arc(loc.x,loc.y,30,0,2*Math.PI);
+			ctx.stroke();
+			ctx.strokeStyle = style;
+		},
+		drawBattery:function(ctx, battery){
+			//alert("drawPowerSupply");
+			var nodeID = battery["nodeID"];
+			var node = nodesList.filter(function(v) {
+			    return v._id === nodeID; // filter out appropriate one
+			})[0];
+			var loc = {x : node["location"]["x"], y : node["location"]["y"]};
+			
+			var style = ctx.strokeStyle;
+			ctx.strokeStyle = 'ORANGE';
+			ctx.beginPath();
+			ctx.arc(loc.x,loc.y,20,0,2*Math.PI);
 			ctx.stroke();
 			ctx.strokeStyle = style;
 		}

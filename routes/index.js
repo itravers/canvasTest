@@ -17,6 +17,8 @@ router.get('/canvasTest', function(req, res, next) {
 	var transmissionLinesList = 0;
 	var powerConsumers = db.get('powerConsumers');
 	var powerConsumersList = 0;
+	var batteries = db.get('batteries');
+	var batteriesList = 0;
 	powerSupplies.find({},{}, function(e, docs){
 		powerSuppliesList = docs;
 		//res.render('canvasTest', { title: 'Canvas Test', "powerSuppliesList" : docs });
@@ -30,6 +32,10 @@ router.get('/canvasTest', function(req, res, next) {
 		powerConsumersList = docs;
 	});
 	
+	batteries.find({},{}, function(e, docs){
+		batteriesList = docs;
+	});
+	
 	
 	nodes.find({},{}, function(e, docs){
 		nodesList = docs;
@@ -37,7 +43,8 @@ router.get('/canvasTest', function(req, res, next) {
 								   "nodesList" : nodesList, 
 								   "powerSuppliesList" : powerSuppliesList,
 								   "transmissionLinesList" : transmissionLinesList,
-								   "powerConsumersList" : powerConsumersList
+								   "powerConsumersList" : powerConsumersList,
+								   "batteriesList" : batteriesList
 								   });
 	});
 	

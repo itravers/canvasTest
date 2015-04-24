@@ -244,6 +244,27 @@ transmissionLine4 = {
 }
 db.transmissionLines.insert(transmissionLine4)
 
+node12 = {
+		_id : "node12",
+		"location" : {"x": 450, "y": 200},
+		"totalPower" : 0,
+		"interimPower" :[],
+		"neighbours" :["node3", "node4"],
+		"calculated" : false,
+		"belongsToLine" : false
+}
+db.nodes.insert(node12)
+
+bat1 = {
+		_id : "bat1",
+		"state" : "consumer",
+		"node" : "node12",
+		"powerBankLimit" : 200,
+		"powerPerSecond_Supplied" : 10,
+		"powerPerSecond_Received" : 10
+}
+
+db.batteries.insert(bat1)
 
 
 

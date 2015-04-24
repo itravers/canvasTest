@@ -6,6 +6,7 @@ block content
     var powerSuppliesList =!{JSON.stringify(powerSuppliesList)}
     var transmissionLinesList =!{JSON.stringify(transmissionLinesList)}
     var powerConsumersList =!{JSON.stringify(powerConsumersList)}
+    var batteriesList =!{JSON.stringify(batteriesList)}
   script(src='/javascripts/jquery.min.js')
   script(src='/javascripts/MenuItem.js')
   script(src='/javascripts/NetworkCanvas.js')
@@ -107,3 +108,29 @@ block content
               =consumer.consumptionPerSec
             td
               =consumer.suppliedPower
+  div
+    table
+      caption Batteries List
+      thead
+        tr
+          th _id
+          th state
+          th nodeID
+          th powerBankLimit
+          th pps_supplied
+          th pps_received
+      tBody
+        each battery, i in batteriesList
+          tr
+            td 
+              =battery._id
+            td 
+              =battery.state
+            td
+              =battery.nodeID
+            td
+              =battery.powerBankLimit
+            td
+              =battery.powerPerSecond_Supplied
+            td
+              =battery.powerPerSecond_Received
