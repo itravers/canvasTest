@@ -19,34 +19,38 @@ router.get('/canvasTest', function(req, res, next) {
 	var powerConsumersList = 0;
 	var batteries = db.get('batteries');
 	var batteriesList = 0;
+	//pull data from db in a series and then render it to the jade view
 	powerSupplies.find({},{}, function(e, docs){
 		powerSuppliesList = docs;
-		//res.render('canvasTest', { title: 'Canvas Test', "powerSuppliesList" : docs });
+		transmissionLines.find({},{}, function(e, docs){
+			transmissionLinesList = docs;
+			powerConsumers.find({},{}, function(e, docs){
+				powerConsumersList = docs;
+				batteries.find({},{}, function(e, docs){
+					batteriesList = docs;
+					nodes.find({},{}, function(e, docs){
+						nodesList = docs;
+						res.render('canvasTest', { title: 'Canvas Test', 
+												   "nodesList" : nodesList, 
+												   "powerSuppliesList" : powerSuppliesList,
+												   "transmissionLinesList" : transmissionLinesList,
+												   "powerConsumersList" : powerConsumersList,
+												   "batteriesList" : batteriesList
+												   });
+					});
+				});
+			});
+		});
 	});
 	
-	transmissionLines.find({},{}, function(e, docs){
-		transmissionLinesList = docs;
-	});
-	
-	powerConsumers.find({},{}, function(e, docs){
-		powerConsumersList = docs;
-	});
-	
-	batteries.find({},{}, function(e, docs){
-		batteriesList = docs;
-	});
 	
 	
-	nodes.find({},{}, function(e, docs){
-		nodesList = docs;
-		res.render('canvasTest', { title: 'Canvas Test', 
-								   "nodesList" : nodesList, 
-								   "powerSuppliesList" : powerSuppliesList,
-								   "transmissionLinesList" : transmissionLinesList,
-								   "powerConsumersList" : powerConsumersList,
-								   "batteriesList" : batteriesList
-								   });
-	});
+	
+	
+	
+	
+	
+	
 	
 	
 	
