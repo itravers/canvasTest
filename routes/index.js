@@ -15,6 +15,8 @@ router.get('/canvasTest', function(req, res, next) {
 	var nodesList = 0;
 	var transmissionLines = db.get('transmissionLines');
 	var transmissionLinesList = 0;
+	var powerConsumers = db.get('powerConsumers');
+	var powerConsumersList = 0;
 	powerSupplies.find({},{}, function(e, docs){
 		powerSuppliesList = docs;
 		//res.render('canvasTest', { title: 'Canvas Test', "powerSuppliesList" : docs });
@@ -24,13 +26,18 @@ router.get('/canvasTest', function(req, res, next) {
 		transmissionLinesList = docs;
 	});
 	
+	powerConsumers.find({},{}, function(e, docs){
+		powerConsumersList = docs;
+	});
+	
 	
 	nodes.find({},{}, function(e, docs){
 		nodesList = docs;
 		res.render('canvasTest', { title: 'Canvas Test', 
 								   "nodesList" : nodesList, 
 								   "powerSuppliesList" : powerSuppliesList,
-								   "transmissionLinesList" : transmissionLinesList
+								   "transmissionLinesList" : transmissionLinesList,
+								   "powerConsumersList" : powerConsumersList
 								   });
 	});
 	

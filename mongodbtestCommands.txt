@@ -2,7 +2,7 @@
 
 node1 = {
 		_id : "node1",
-		"location" : [{"x": 100, "y": 100}],
+		"location" : {"x": 100, "y": 100},
 		"totalPower" : 0,
 		"interimPower" :[],
 		"parent" : "none",
@@ -25,7 +25,7 @@ db.powerSupplies.insert(powerSupply)
 
 node2 = {
 	_id : "node2",
-	"location" : [{"x": 100, "y": 100}],
+	"location" : {"x": 100, "y": 100},
 		"totalPower" : 0,
 		"interimPower" :[],
 		"parent" : "node1",
@@ -47,7 +47,7 @@ db.nodes.update(
 
 node3 = {
 	_id : "node3",
-	"location" : [{"x": 200, "y": 200}],
+	"location" : {"x": 200, "y": 200},
 		"totalPower" : 0,
 		"interimPower" :[],
 		"parent" : "none",
@@ -67,6 +67,76 @@ transmissionLine = {
 }
 
 db.transmissionLines.insert(transmissionLine)
+
+node4 = {
+	_id : "node4",
+	"location" : {"x": 100, "y": 100},
+		"totalPower" : 0,
+		"interimPower" :[],
+		"parent" : "node1",
+		"children" : [],
+		"calculated" : false,
+		"belongsToLine" : true
+}
+
+db.nodes.insert(node4);
+
+db.nodes.update(
+    { _id: "node1" },
+    {
+      $push: {
+        children: "node4"
+      }
+    }
+)
+
+node5 = {
+	_id : "node5",
+	"location" : {"x": 200, "y": 100},
+		"totalPower" : 0,
+		"interimPower" :[],
+		"parent" : "none",
+		"children" : [],
+		"calculated" : false,
+		"belongsToLine" : true
+}
+
+db.nodes.insert(node5);
+
+transmissionLine2 = {
+	_id : "transLine2",
+	"nodeAID" : "node4",
+	"nodeBID" : "node5",
+	"dParam" : 3,
+    "kParam" : 2000	
+}
+
+db.transmissionLines.insert(transmissionLine2)
+
+node6 = {
+	_id : "node6",
+	"location" : {"x": 250, "y": 120},
+		"totalPower" : 0,
+		"interimPower" :[],
+		"parent" : "node5",
+		"children" : [],
+		"calculated" : false,
+		"belongsToLine" : false
+}
+
+db.nodes.insert(node6);
+
+powerConsumer1 = {
+	_id : "powerConsumer1",
+	nodeID : "node6",
+	consumptionPerSec : 10,
+	suppliedPower : 0
+}
+
+db.powerConsumers.insert(powerConsumer1)
+
+
+
 
 //db.system.js.save(
 //   {

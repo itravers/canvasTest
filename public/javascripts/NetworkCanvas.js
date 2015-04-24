@@ -42,6 +42,13 @@ NetworkCanvas.prototype = {
 			for(var i = 0; i < powerSuppliesList.length; i++){
 				this.drawPowerSupply(ctx, powerSuppliesList[i]);
 			}
+			for(var i = 0; i < transmissionLinesList.length; i++){
+				this.drawTransmissionLine(ctx, transmissionLinesList[i]);
+			}
+			for(var i = 0; i < powerConsumersList.length; i++){
+				this.drawPowerConsumer(ctx, powerConsumersList[i]);
+			}
+			
 			
 		},
 		drawMenu:function(ctx){
@@ -59,7 +66,7 @@ NetworkCanvas.prototype = {
 		}
 		,
 		drawPowerSupply:function(ctx, supply){
-			alert("drawPowerSupply");
+			//alert("drawPowerSupply");
 			var nodeID = supply["nodeID"];
 			var node = nodesList.filter(function(v) {
 			    return v._id === nodeID; // filter out appropriate one
@@ -68,6 +75,42 @@ NetworkCanvas.prototype = {
 			
 			var style = ctx.strokeStyle;
 			ctx.strokeStyle = 'green';
+			ctx.beginPath();
+			ctx.arc(loc.x,loc.y,30,0,2*Math.PI);
+			ctx.stroke();
+			ctx.strokeStyle = style;
+		},
+		drawTransmissionLine:function(ctx, tLine){
+			//alert("drawTLine");
+			var nodeAID = tLine["nodeAID"];
+			var nodeBID = tLine["nodeBID"];
+			var nodeA = nodesList.filter(function(v) {
+			    return v._id === nodeAID; // filter out appropriate one
+			})[0];
+			var nodeB = nodesList.filter(function(v) {
+			    return v._id === nodeBID; // filter out appropriate one
+			})[0];
+			var loc = {x1 : nodeA["location"]["x"], y1 : nodeA["location"]["y"],
+			           x2 : nodeB["location"]["x"], y2 : nodeB["location"]["y"]};
+			//alert(JSON.stringify(loc));
+			var style = ctx.strokeStyle;
+			ctx.strokeStyle = 'yellow';
+			ctx.beginPath();
+			ctx.moveTo(loc.x1, loc.y1);
+			ctx.lineTo(loc.x2, loc.y2);
+			ctx.stroke();
+			ctx.strokeStyle = style;
+		},
+		drawPowerConsumer:function(ctx, consumer){
+			//alert("drawPowerSupply");
+			var nodeID = consumer["nodeID"];
+			var node = nodesList.filter(function(v) {
+			    return v._id === nodeID; // filter out appropriate one
+			})[0];
+			var loc = {x : node["location"]["x"], y : node["location"]["y"]};
+			
+			var style = ctx.strokeStyle;
+			ctx.strokeStyle = 'BLUE';
 			ctx.beginPath();
 			ctx.arc(loc.x,loc.y,30,0,2*Math.PI);
 			ctx.stroke();
