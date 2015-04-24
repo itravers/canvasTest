@@ -287,6 +287,8 @@ db.batteries.insert(bat1)
 resistor1 = {
 		_id : "resistor1",
 		"tLineID" : "transmissionLine1"
+		"dParam" : 2,
+		"kParam" : 3000
 }
 
 db.resistors.insert(resistor1)

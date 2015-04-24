@@ -19,6 +19,8 @@ router.get('/canvasTest', function(req, res, next) {
 	var powerConsumersList = 0;
 	var batteries = db.get('batteries');
 	var batteriesList = 0;
+	var resistors = db.get('resistors');
+	var resistorsList = 0;
 	//pull data from db in a series and then render it to the jade view
 	powerSupplies.find({},{}, function(e, docs){
 		powerSuppliesList = docs;
@@ -28,16 +30,21 @@ router.get('/canvasTest', function(req, res, next) {
 				powerConsumersList = docs;
 				batteries.find({},{}, function(e, docs){
 					batteriesList = docs;
-					nodes.find({},{}, function(e, docs){
-						nodesList = docs;
-						res.render('canvasTest', { title: 'Canvas Test', 
-												   "nodesList" : nodesList, 
-												   "powerSuppliesList" : powerSuppliesList,
-												   "transmissionLinesList" : transmissionLinesList,
-												   "powerConsumersList" : powerConsumersList,
-												   "batteriesList" : batteriesList
-												   });
+					resistors.find({},{}, function(e, docs){
+						resistorsList = docs;
+						nodes.find({},{}, function(e, docs){
+							nodesList = docs;
+							res.render('canvasTest', { title: 'Canvas Test', 
+													   "nodesList" : nodesList, 
+													   "powerSuppliesList" : powerSuppliesList,
+													   "transmissionLinesList" : transmissionLinesList,
+													   "powerConsumersList" : powerConsumersList,
+													   "batteriesList" : batteriesList,
+													   "resistorsList" : resistorsList
+													   });
+						});
 					});
+					
 				});
 			});
 		});

@@ -134,3 +134,23 @@ block content
               =battery.powerPerSecond_Supplied
             td
               =battery.powerPerSecond_Received
+  div
+    table
+      caption Resistors List
+      thead
+        tr
+          th _id
+          th tLineID
+          th dParam
+          th kParam
+      tBody
+        each resistor, i in resistorsList
+          tr
+            td 
+              =resistor._id
+            td 
+              =resistor.tLineID
+            td
+              =resistor.dParam
+            td
+              =resistor.kParam
