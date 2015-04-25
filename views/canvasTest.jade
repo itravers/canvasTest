@@ -6,7 +6,6 @@ block content
   script(type='text/javascript').
     //give the angularjs scope access to all our lists
     var app = angular.module("canvasTestApp", []); 
-    
     app.controller('canvasTestCtrl', function($scope) {
       $scope.resistorsList  =!{JSON.stringify(resistorsList)}
       $scope.nodesList =!{JSON.stringify(nodesList)}
@@ -19,147 +18,149 @@ block content
   script(src='/javascripts/MenuItem.js')
   script(src='/javascripts/NetworkCanvas.js')
   script(src='/javascripts/global.js')
-  h1= title
-  p Welcome to #{title}
-  |   
-  canvas#canvas
- 
-  div.calculateBox
-    form(name="calculate")
-      input(type="text", name="timePassed", placeHolder="Time Passed in Milli's", id="timePassed") 
-    button#calculate.
-      Calculate
   div#canvasTestApp(data-ng-app="canvasTestApp", ng-controller="canvasTestCtrl")
+    h1= title
+    p Welcome to #{title}
+    |   
+    canvas#canvas
+ 
+    div.calculateBox
+      form(name="calculate")
+        input(type="range", min="1", max="100", value="0", name="timePassed", id="timePassed", data-ng-model="timeElapsed")
+        p {{timeElapsed}} 
+      button#calculate.
+        Calculate
     div
-      table
-        caption Power Supplies List
-        thead
-          tr
-            th _id
-            th totalPower
-            th powerPerSecond
-            th nodeID
-        tBody
-          tr(ng-repeat="supply in powerSuppliesList")
-            td 
-              {{supply._id}}
-            td 
-              {{supply.totalPower}}
-            td 
-              {{supply.powerPerSecond}}
-            td 
-              {{supply.nodeID}}
-    div
-      table
-        caption Nodes List
-        thead
-          tr
-            th _id
-            th location
-            th totalPower
-            th interimPowers
-            th neighbours
-            th calculated
-            th belongsToLine
-        tBody
-          tr(ng-repeat="node in nodesList")
-            td 
-              {{node._id}}
-            td 
-              {{node.location}}
-            td
-              {{node.totalPower}}
-            td
-              {{node.interimPowers}}
-            td
-              {{node.neighbours}}
-            td
-              {{node.calculated}}
-            td
-              {{node.belongsToLine}}
-    div
-      table
-        caption T.Line List
-        thead
-          tr
-            th _id
-            th nodeAID
-            th nodeBID
-            th dParam
-            th kParam
-        tBody
-          tr(ng-repeat="line in transmissionLinesList")
-            td 
-              {{line._id}}
-            td 
-              {{line.nodeAID}}
-            td
-              {{line.nodeBID}}
-            td
-              {{line.dParam}}
-            td
-              {{line.kParam}}
-    div
-      table
-        caption Power Consumers List
-        thead
-          tr
-            th _id
-            th nodeID
-            th consumptionPerSec
-            th suppliedPower
-        tBody
-          tr(ng-repeat="consumer in powerConsumersList")
-            td 
-              {{consumer._id}}
-            td 
-              {{consumer.nodeID}}
-            td
-              {{consumer.consumptionPerSec}}
-            td
-              {{consumer.suppliedPower}}
-    div
-      table
-        caption Batteries List
-        thead
-          tr
-            th _id
-            th state
-            th nodeID
-            th powerBankLimit
-            th pps_supplied
-            th pps_received
-        tBody
-          tr(ng-repeat="battery in batteriesList")
-            td 
-              {{battery._id}}
-            td 
-              {{battery.state}}
-            td
-              {{battery.nodeID}}
-            td
-              {{battery.powerBankLimit}}
-            td
-              {{battery.powerPerSecond_Supplied}}
-            td
-              {{battery.powerPerSecond_Received}}
-    div#resistorsTable
-      table
-        caption Resistors List
-        thead
-          tr
-            th _id
-            th tLineID
-            th dParam
-            th kParam
-        tBody
-          tr(ng-repeat="resistor in resistorsList")
-            td 
-              {{resistor._id}}
-            td
-              {{resistor.tLineID}}
-            td
-              {{resistor.dParam}}
-            td
-              {{resistor.kParam}}
+      div
+        table
+          caption Power Supplies List
+          thead
+            tr
+              th _id
+              th totalPower
+              th powerPerSecond
+              th nodeID
+          tBody
+            tr(ng-repeat="supply in powerSuppliesList")
+              td 
+                {{supply._id}}
+              td 
+                {{supply.totalPower}}
+              td 
+                {{supply.powerPerSecond}}
+              td 
+                {{supply.nodeID}}
+      div
+        table
+          caption Nodes List
+          thead
+            tr
+              th _id
+              th location
+              th totalPower
+              th interimPowers
+              th neighbours
+              th calculated
+              th belongsToLine
+          tBody
+            tr(ng-repeat="node in nodesList")
+              td 
+                {{node._id}}
+              td 
+                {{node.location}}
+              td
+                {{node.totalPower}}
+              td
+                {{node.interimPowers}}
+              td
+                {{node.neighbours}}
+              td
+                {{node.calculated}}
+              td
+                {{node.belongsToLine}}
+      div
+        table
+          caption T.Line List
+          thead
+            tr
+              th _id
+              th nodeAID
+              th nodeBID
+              th dParam
+              th kParam
+          tBody
+            tr(ng-repeat="line in transmissionLinesList")
+              td 
+                {{line._id}}
+              td 
+                {{line.nodeAID}}
+              td
+                {{line.nodeBID}}
+              td
+                {{line.dParam}}
+              td
+                {{line.kParam}}
+      div
+        table
+          caption Power Consumers List
+          thead
+            tr
+              th _id
+              th nodeID
+              th consumptionPerSec
+              th suppliedPower
+          tBody
+            tr(ng-repeat="consumer in powerConsumersList")
+              td 
+                {{consumer._id}}
+              td 
+                {{consumer.nodeID}}
+              td
+                {{consumer.consumptionPerSec}}
+              td
+                {{consumer.suppliedPower}}
+      div
+        table
+          caption Batteries List
+          thead
+            tr
+              th _id
+              th state
+              th nodeID
+              th powerBankLimit
+              th pps_supplied
+              th pps_received
+          tBody
+            tr(ng-repeat="battery in batteriesList")
+              td 
+                {{battery._id}}
+              td 
+                {{battery.state}}
+              td
+                {{battery.nodeID}}
+              td
+                {{battery.powerBankLimit}}
+              td
+                {{battery.powerPerSecond_Supplied}}
+              td
+                {{battery.powerPerSecond_Received}}
+      div#resistorsTable
+        table
+          caption Resistors List
+          thead
+            tr
+              th _id
+              th tLineID
+              th dParam
+              th kParam
+          tBody
+            tr(ng-repeat="resistor in resistorsList")
+              td 
+                {{resistor._id}}
+              td
+                {{resistor.tLineID}}
+              td
+                {{resistor.dParam}}
+              td
+                {{resistor.kParam}}
   
