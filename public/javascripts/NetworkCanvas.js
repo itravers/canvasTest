@@ -80,17 +80,26 @@ NetworkCanvas.prototype = {
 		}
 		,
 		drawPowerSupply:function(ctx, supply){
+			var size = 30;
 			//alert("drawPowerSupply");
 			var nodeID = supply["nodeID"];
 			var node = scope.nodesList.filter(function(v) {
 			    return v._id === nodeID; // filter out appropriate one
 			})[0];
+			
 			var loc = {x : node["location"]["x"], y : node["location"]["y"]};
+			
+			var nodePower = node.totalPower;
+			var fillStyle = ctx.fillStyle;
+			ctx.fillStyle = "blue";
+			ctx.font = "bold 16px Arial";
+			ctx.fillText(nodePower, loc.x-(size/2), loc.y - size);
+			ctx.fillStyle = fillStyle;
 			
 			var style = ctx.strokeStyle;
 			ctx.strokeStyle = 'green';
 			ctx.beginPath();
-			ctx.arc(loc.x,loc.y,30,0,2*Math.PI);
+			ctx.arc(loc.x,loc.y,size,0,2*Math.PI);
 			ctx.stroke();
 			ctx.strokeStyle = style;
 		},

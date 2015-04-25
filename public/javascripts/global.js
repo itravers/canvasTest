@@ -52,6 +52,18 @@ function calculateClicked(timePassed){
 		resetNodesCalculation();
 		
 	}
+	
+	var nodes = scope.nodesList;
+	//beta algorithm
+	for(var i = 0; i < nodes.length; i++){
+		var node = nodes[i];
+		var totalPower = 0;
+		for(var j = 0; j < node.interimPower.length; j++){
+			totalPower += node.interimPower[j];
+		}
+		node.totalPower = totalPower;
+		node.interimPower = [];
+	}
 	scope.$apply(function(){
 		//scope.powerSuppliesList = powerSupplies;
     });
