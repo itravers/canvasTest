@@ -74,13 +74,13 @@ NetworkCanvas.prototype = {
 			var loc = {x : node["location"]["x"], y : node["location"]["y"]};
 			
 			var size = 10;
-			/*var nodePower = node.totalPower;
+			var nodePower = node.totalPower;
 			var fillStyle = ctx.fillStyle;
 			ctx.fillStyle = "red";
 			ctx.font = "16px Arial";
 			ctx.fillText(nodePower, loc.x-(size/2), loc.y + size);
 			ctx.fillStyle = fillStyle;
-			*/
+			
 			ctx.strokeStyle = 'red';
 			ctx.beginPath();
 			ctx.arc(loc.x,loc.y,size,0,2*Math.PI);

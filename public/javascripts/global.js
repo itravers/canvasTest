@@ -45,8 +45,10 @@ function calculateClicked(timePassed){
 		calculateNeighbourNodes(node);
 		resetNodesCalculation();
 	}
-	
 	var nodes = scope.nodesList;
+	
+	
+	
 	//beta algorithm
 	for(var i = 0; i < nodes.length; i++){
 		var node = nodes[i];
@@ -55,8 +57,13 @@ function calculateClicked(timePassed){
 			totalPower += node.interimPower[j];
 		}
 		node.totalPower = totalPower;
+		node.interimPower[node.interimPower.length -1] = 3.14;
 		node.interimPower = [];
 	}
+	
+	//newAlgorithm to balance total powers we try to equalize total powers in the nodes
+	equalizeNodePowers(nodes);
+	
 	scope.$apply(function(){
 		//scope.powerSuppliesList = powerSupplies;
     });
@@ -107,7 +114,8 @@ function calculateNeighbourNodes(node){
 		nnode.interimPower.push(neighbourPower);
 	}
 	//alpha.2.D.insert
-	node.interimPower.pop();
+	//node.interimPower.pop();
+	node.interimPower[node.interimPower.length -1] = 0;
 	node.calculated = true;
 	//alpha.2.E
 	for(var i = 0; i < neighbours.length; i++){
@@ -190,6 +198,55 @@ function resetNodesCalculation(){
 	//alpha algorithm
 	for(var i = 0; i < nodes.length; i++) {
 		nodes[i].calculated = false;
+	}
+}
+
+/* Transverse the node and equalize total power with neighbors total powers */
+function equalizeNodePowers(nodes){
+	for(var i = 0; i < nodes.length; i++){
+		var node = nodes[i];
+		if(!node.equalized){
+			var neighbours = getNeighboursFromNode(node);
+			var filteredNeighbours = [];
+			//filter neighbours based on if they have already been equalized
+			for(var j = 0; j < neighbours.length; j++){
+				var neighbour = neighbours[j];
+				if(neighbour.equalized == true){
+					//we don't want this in our filtered array
+				}else{
+					//we do want this in our filtered array.
+					filteredNeighbours.push(neighbour);
+				}
+			}
+			
+			
+			//equalize power between this node and all it's neighbor nodes
+			//first we figure out what the equalized power for all the neighbors will be
+			var equalizedPower = node.totalPower; 
+			for(var j = 0; j < filteredNeighbours.length; j++){
+				var neighbour = filteredNeighbours[j];
+				equalizedPower += neighbour.totalPower;
+			}
+			equalizedPower /= (filteredNeighbours.length + 1); //the average of the power of all the nodes
+			
+			//distribute this equalized power to each node
+			node.totalPower = equalizedPower;
+			node.equalized = true; //set node equalized
+			for(var j = 0; j < filteredNeighbours.length; j++){
+				var n = filteredNeighbours[j];
+				n.totalPower = equalizedPower;
+				n.equalized = true; //set neighbour as equalized
+			}
+		}
+		
+	}
+	
+	//now that node powers are equalized for this calculation we need to reset their
+	//calculated field
+	
+	for(var j = 0; j < nodes.length; j++){
+		var n = nodes[j];
+		n.equalized = false;
 	}
 }
 
