@@ -11,10 +11,10 @@ function NetworkCanvas (canvas, width, height){
 	this.canvas = canvas;
 	this.ctx = canvas.getContext("2d");
 	this.setupCanvas(width, height);
-	this.fillBackground("gray");
+	
 	this.menu = [];
 	this.initializeMenu();
-	this.draw(this.ctx);
+	this.draw();
 }
 NetworkCanvas.prototype = {    
 		constructor: NetworkCanvas,    
@@ -37,7 +37,9 @@ NetworkCanvas.prototype = {
 		setMenuItem:function (menuItem){        
 			this.menu.push(menuItem);
 		},
-		draw:function(ctx){
+		draw:function(){
+			ctx = this.canvas.getContext("2d");
+			this.fillBackground("gray");
 			//alert(nodesList);
 			//this.drawMenu(ctx);
 			for(var i = 0; i < nodesList.length; i++){

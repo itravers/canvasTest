@@ -9,6 +9,7 @@ block content
     var batteriesList =!{JSON.stringify(batteriesList)}
     var resistorsList =!{JSON.stringify(resistorsList)}
   script(src='/javascripts/jquery.min.js')
+  script(src='/javascripts/angular.js')
   script(src='/javascripts/MenuItem.js')
   script(src='/javascripts/NetworkCanvas.js')
   script(src='/javascripts/global.js')
@@ -17,141 +18,147 @@ block content
   |   
   canvas#canvas
  
-  div
-    table
-      caption Power Supplies List
-      thead
-        tr
-          th _id
-          th totalPower
-          th powerPerSecond
-          th nodeID
-      tBody
-        each supply, i in powerSuppliesList
+  div.calculateBox
+    form(name="calculate")
+      input(type="text", name="timePassed", placeHolder="Time Passed in Milli's", id="timePassed") 
+    button#calculate.
+      Calculate
+  div#canvasTestApp(data-ng-app="canvasTestApp", ng-controller="canvasTestCtrl")
+    div
+      table
+        caption Power Supplies List
+        thead
           tr
-            td 
-              =supply._id
-            td 
-              =supply.totalPower
-            td 
-              =supply.powerPerSecond
-            td 
-              =supply.nodeID
-  div
-    table
-      caption Nodes List
-      thead
-        tr
-          th _id
-          th location
-          th totalPower
-          th interimPowers
-          th neighbours
-          th calculated
-          th belongsToLine
-      tBody
-        each node, i in nodesList
+            th _id
+            th totalPower
+            th powerPerSecond
+            th nodeID
+        tBody
+          each supply, i in powerSuppliesList
+            tr
+              td 
+                =supply._id
+              td 
+                =supply.totalPower
+              td 
+                =supply.powerPerSecond
+              td 
+                =supply.nodeID
+    div
+      table
+        caption Nodes List
+        thead
           tr
-            td 
-              =node._id
-            td 
-              =JSON.stringify(node.location)
-            td
-              =node.totalPower
-            td
-              =JSON.stringify(node.interimPower)
-            td
-              =JSON.stringify(node.neighbours)
-            td
-              =node.calculated
-            td
-              =node.belongsToLine
-  div
-    table
-      caption T.Line List
-      thead
-        tr
-          th _id
-          th nodeAID
-          th nodeBID
-          th dParam
-          th kParam
-      tBody
-        each line, i in transmissionLinesList
+            th _id
+            th location
+            th totalPower
+            th interimPowers
+            th neighbours
+            th calculated
+            th belongsToLine
+        tBody
+          each node, i in nodesList
+            tr
+              td 
+                =node._id
+              td 
+                =JSON.stringify(node.location)
+              td
+                =node.totalPower
+              td
+                =JSON.stringify(node.interimPower)
+              td
+                =JSON.stringify(node.neighbours)
+              td
+                =node.calculated
+              td
+                =node.belongsToLine
+    div
+      table
+        caption T.Line List
+        thead
           tr
-            td 
-              =line._id
-            td 
-              =line.nodeAID
-            td
-              =line.nodeBID
-            td
-              =line.dParam
-            td
-              =line.kParam
-  div
-    table
-      caption Power Consumers List
-      thead
-        tr
-          th _id
-          th nodeID
-          th consumptionPerSec
-          th suppliedPower
-      tBody
-        each consumer, i in powerConsumersList
+            th _id
+            th nodeAID
+            th nodeBID
+            th dParam
+            th kParam
+        tBody
+          each line, i in transmissionLinesList
+            tr
+              td 
+                =line._id
+              td 
+                =line.nodeAID
+              td
+                =line.nodeBID
+              td
+                =line.dParam
+              td
+                =line.kParam
+    div
+      table
+        caption Power Consumers List
+        thead
           tr
-            td 
-              =consumer._id
-            td 
-              =consumer.nodeID
-            td
-              =consumer.consumptionPerSec
-            td
-              =consumer.suppliedPower
-  div
-    table
-      caption Batteries List
-      thead
-        tr
-          th _id
-          th state
-          th nodeID
-          th powerBankLimit
-          th pps_supplied
-          th pps_received
-      tBody
-        each battery, i in batteriesList
+            th _id
+            th nodeID
+            th consumptionPerSec
+            th suppliedPower
+        tBody
+          each consumer, i in powerConsumersList
+            tr
+              td 
+                =consumer._id
+              td 
+                =consumer.nodeID
+              td
+                =consumer.consumptionPerSec
+              td
+                =consumer.suppliedPower
+    div
+      table
+        caption Batteries List
+        thead
           tr
-            td 
-              =battery._id
-            td 
-              =battery.state
-            td
-              =battery.nodeID
-            td
-              =battery.powerBankLimit
-            td
-              =battery.powerPerSecond_Supplied
-            td
-              =battery.powerPerSecond_Received
-  div
-    table
-      caption Resistors List
-      thead
-        tr
-          th _id
-          th tLineID
-          th dParam
-          th kParam
-      tBody
-        each resistor, i in resistorsList
+            th _id
+            th state
+            th nodeID
+            th powerBankLimit
+            th pps_supplied
+            th pps_received
+        tBody
+          each battery, i in batteriesList
+            tr
+              td 
+                =battery._id
+              td 
+                =battery.state
+              td
+                =battery.nodeID
+              td
+                =battery.powerBankLimit
+              td
+                =battery.powerPerSecond_Supplied
+              td
+                =battery.powerPerSecond_Received
+    div#resistorsTable
+      table
+        caption Resistors List
+        thead
           tr
+            th _id
+            th tLineID
+            th dParam
+            th kParam
+        tBody
+          tr(ng-repeat="resistor in resistors")
             td 
-              =resistor._id
-            td 
-              =resistor.tLineID
+              {{resistor._id}}
             td
-              =resistor.dParam
+              {{resistor.tLineID}}
             td
-              =resistor.kParam
+              {{resistor.dParam}}
+            td
+              {{resistor.kParam}}
+  
