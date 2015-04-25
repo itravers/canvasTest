@@ -28,8 +28,10 @@ function registerClicks(){
 function calculateClicked(timePassed){
 	var powerSupplies = scope.powerSuppliesList;
 	//alpha algorithm
-	//for(var i = 0; i < powerSupplies.length; i++) {
-	for(var i = 0; i < 1; i++) {
+	for(var i = 0; i < powerSupplies.length; i++) {
+	//for(var i = 1; i < 1; i++) {
+	//{
+		//var i = 1;
 		var supply = powerSupplies[i];
 		var node = getNodeFromPowerSupply(supply);
 		//var node = nodes.filter(function(v) {
@@ -47,6 +49,7 @@ function calculateClicked(timePassed){
 		}
 		
 		calculateNeighbourNodes(node);
+		resetNodesCalculation();
 		
 	}
 	scope.$apply(function(){
@@ -113,7 +116,7 @@ function calculateNeighbourNodes(node){
 			nnode.calculated = true;
 			calculateNeighbourNodes(nodeB);
 		}else if(nnode.belongsToConsumer){
-			alert("nnode belongstoConsumer "+nnode._id);
+			//alert("nnode belongstoConsumer "+nnode._id);
 			//calculate n
 			//here is where we will make the consumer have power
 			nnode.calculated = true;
@@ -175,6 +178,14 @@ function getTLineIDFromNode(node){
 		}
 	}
 	return id;
+}
+
+function resetNodesCalculation(){
+	var nodes = scope.nodesList;
+	//alpha algorithm
+	for(var i = 0; i < nodes.length; i++) {
+		nodes[i].calculated = false;
+	}
 }
 
 
