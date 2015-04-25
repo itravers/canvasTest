@@ -27,10 +27,13 @@ function registerClicks(){
 
 function calculateClicked(timePassed){
 	var powerSupplies = scope.powerSuppliesList;
-	//alert(JSON.stringify(powerSupplies));
+	//alpha algorithm
 	for(var i = 0; i < powerSupplies.length; i++) {
 		var supply = powerSupplies[i];
 		var node = getNodeFromPowerSupply(supply);
+		//var node = nodes.filter(function(v) {
+		//    return v._id === supply.nodeID; // filter out appropriate one
+		//})[0];
 		//alpha.1.A integrate time passed with pps to get interim node power
 		var interimPower = (supply.powerPerSecond * (timePassed/1000));
 		node.interimPower.push(interimPower);
@@ -44,7 +47,7 @@ function calculateClicked(timePassed){
 		
 	}
 	scope.$apply(function(){
-		
+		//scope.powerSuppliesList = powerSupplies;
     });
 	networkCanvas.draw();
 }
