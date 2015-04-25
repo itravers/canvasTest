@@ -1,15 +1,21 @@
 extends layout
 
 block content
-  script(type='text/javascript').
-    var nodesList =!{JSON.stringify(nodesList)}
-    var powerSuppliesList =!{JSON.stringify(powerSuppliesList)}
-    var transmissionLinesList =!{JSON.stringify(transmissionLinesList)}
-    var powerConsumersList =!{JSON.stringify(powerConsumersList)}
-    var batteriesList =!{JSON.stringify(batteriesList)}
-    var resistorsList =!{JSON.stringify(resistorsList)}
   script(src='/javascripts/jquery.min.js')
   script(src='/javascripts/angular.js')
+  script(type='text/javascript').
+    //give the angularjs scope access to all our lists
+    var app = angular.module("canvasTestApp", []); 
+    
+    app.controller('canvasTestCtrl', function($scope) {
+      $scope.resistorsList  =!{JSON.stringify(resistorsList)}
+      $scope.nodesList =!{JSON.stringify(nodesList)}
+      $scope.powerSuppliesList =!{JSON.stringify(powerSuppliesList)}
+      $scope.transmissionLinesList =!{JSON.stringify(transmissionLinesList)}
+      $scope.powerConsumersList =!{JSON.stringify(powerConsumersList)}
+      $scope.batteriesList =!{JSON.stringify(batteriesList)}
+      //$scope.lastName= "Doe";
+    })
   script(src='/javascripts/MenuItem.js')
   script(src='/javascripts/NetworkCanvas.js')
   script(src='/javascripts/global.js')
@@ -34,16 +40,15 @@ block content
             th powerPerSecond
             th nodeID
         tBody
-          each supply, i in powerSuppliesList
-            tr
-              td 
-                =supply._id
-              td 
-                =supply.totalPower
-              td 
-                =supply.powerPerSecond
-              td 
-                =supply.nodeID
+          tr(ng-repeat="supply in powerSuppliesList")
+            td 
+              {{supply._id}}
+            td 
+              {{supply.totalPower}}
+            td 
+              {{supply.powerPerSecond}}
+            td 
+              {{supply.nodeID}}
     div
       table
         caption Nodes List
@@ -57,22 +62,21 @@ block content
             th calculated
             th belongsToLine
         tBody
-          each node, i in nodesList
-            tr
-              td 
-                =node._id
-              td 
-                =JSON.stringify(node.location)
-              td
-                =node.totalPower
-              td
-                =JSON.stringify(node.interimPower)
-              td
-                =JSON.stringify(node.neighbours)
-              td
-                =node.calculated
-              td
-                =node.belongsToLine
+          tr(ng-repeat="node in nodesList")
+            td 
+              {{node._id}}
+            td 
+              {{node.location}}
+            td
+              {{node.totalPower}}
+            td
+              {{node.interimPowers}}
+            td
+              {{node.neighbours}}
+            td
+              {{node.calculated}}
+            td
+              {{node.belongsToLine}}
     div
       table
         caption T.Line List
@@ -84,18 +88,17 @@ block content
             th dParam
             th kParam
         tBody
-          each line, i in transmissionLinesList
-            tr
-              td 
-                =line._id
-              td 
-                =line.nodeAID
-              td
-                =line.nodeBID
-              td
-                =line.dParam
-              td
-                =line.kParam
+          tr(ng-repeat="line in transmissionLinesList")
+            td 
+              {{line._id}}
+            td 
+              {{line.nodeAID}}
+            td
+              {{line.nodeBID}}
+            td
+              {{line.dParam}}
+            td
+              {{line.kParam}}
     div
       table
         caption Power Consumers List
@@ -106,16 +109,15 @@ block content
             th consumptionPerSec
             th suppliedPower
         tBody
-          each consumer, i in powerConsumersList
-            tr
-              td 
-                =consumer._id
-              td 
-                =consumer.nodeID
-              td
-                =consumer.consumptionPerSec
-              td
-                =consumer.suppliedPower
+          tr(ng-repeat="consumer in powerConsumersList")
+            td 
+              {{consumer._id}}
+            td 
+              {{consumer.nodeID}}
+            td
+              {{consumer.consumptionPerSec}}
+            td
+              {{consumer.suppliedPower}}
     div
       table
         caption Batteries List
@@ -128,20 +130,19 @@ block content
             th pps_supplied
             th pps_received
         tBody
-          each battery, i in batteriesList
-            tr
-              td 
-                =battery._id
-              td 
-                =battery.state
-              td
-                =battery.nodeID
-              td
-                =battery.powerBankLimit
-              td
-                =battery.powerPerSecond_Supplied
-              td
-                =battery.powerPerSecond_Received
+          tr(ng-repeat="battery in batteriesList")
+            td 
+              {{battery._id}}
+            td 
+              {{battery.state}}
+            td
+              {{battery.nodeID}}
+            td
+              {{battery.powerBankLimit}}
+            td
+              {{battery.powerPerSecond_Supplied}}
+            td
+              {{battery.powerPerSecond_Received}}
     div#resistorsTable
       table
         caption Resistors List
@@ -152,7 +153,7 @@ block content
             th dParam
             th kParam
         tBody
-          tr(ng-repeat="resistor in resistors")
+          tr(ng-repeat="resistor in resistorsList")
             td 
               {{resistor._id}}
             td

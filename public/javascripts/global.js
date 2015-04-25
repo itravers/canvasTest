@@ -1,12 +1,9 @@
 var networkCanvas;
-var app = angular.module("canvasTestApp", []); 
-app.controller('canvasTestCtrl', function($scope) {
-    $scope.resistors = resistorsList;
-    //$scope.lastName= "Doe";
-});
+var scope;
 
 // DOM Ready =============================================================
 $(document).ready(function() {
+	scope = angular.element($("#canvasTestApp")).scope();
 	//setupAngularControllers();
 	setupCanvas();
 	registerClicks();
@@ -29,23 +26,14 @@ function registerClicks(){
 }
 
 function calculateClicked(){
-	//just as a test lets move one of the resistors and redraw
-	var resistor = resistorsList[0];
-	var resistor2 = resistorsList[1];
 	
-	resistor.tLineID = "transmissionLine4";
-	resistor2.tLineID = "transmissionLine3";
-	//alert(JSON.stringify(networkCanvas));
-	syncAngularData();
+	scope.$apply(function(){
+		scope.resistorsList[0].tLineID = "transmissionLine4";
+		scope.resistorsList[1].tLineID = "transmissionLine3";
+		scope.nodesList[0].totalPower = 50;
+		scope.batteriesList[0].nodeID = "node9";
+    });
 	networkCanvas.draw();
-}
-
-function syncAngularData(){
-	var scope = angular.element($("#canvasTestApp")).scope();
-	 //alert(JSON.stringify(scope));
-	    scope.$apply(function(){
-	        scope.resistors = resistorsList;
-	    });
 }
 
 

@@ -4,8 +4,8 @@
 //2. make new frontend js variable using the jade template
 //3. utilize that variable here ie batteriesList
 function NetworkCanvas (canvas, width, height){
-	//alert(JSON.stringify( nodesList ));
-	//alert(nodesList[0]["_id"]);
+	//alert(JSON.stringify( scope.nodesList ));
+	//alert(scope.nodesList[0]["_id"]);
 	//alert(powerSuppliesList[0]["_id"]);
 	
 	this.canvas = canvas;
@@ -38,28 +38,29 @@ NetworkCanvas.prototype = {
 			this.menu.push(menuItem);
 		},
 		draw:function(){
+			var scope = angular.element($("#canvasTestApp")).scope();
 			ctx = this.canvas.getContext("2d");
 			this.fillBackground("gray");
-			//alert(nodesList);
+			//alert(scope.nodesList);
 			//this.drawMenu(ctx);
-			for(var i = 0; i < nodesList.length; i++){
-				this.drawNode(ctx, nodesList[i]);
+			for(var i = 0; i < scope.nodesList.length; i++){
+				this.drawNode(ctx, scope.nodesList[i]);
 			}
-			for(var i = 0; i < powerSuppliesList.length; i++){
-				this.drawPowerSupply(ctx, powerSuppliesList[i]);
+			for(var i = 0; i < scope.powerSuppliesList.length; i++){
+				this.drawPowerSupply(ctx, scope.powerSuppliesList[i]);
 			}
-			for(var i = 0; i < transmissionLinesList.length; i++){
-				this.drawTransmissionLine(ctx, transmissionLinesList[i]);
+			for(var i = 0; i < scope.transmissionLinesList.length; i++){
+				this.drawTransmissionLine(ctx, scope.transmissionLinesList[i]);
 			}
-			for(var i = 0; i < powerConsumersList.length; i++){
-				this.drawPowerConsumer(ctx, powerConsumersList[i]);
+			for(var i = 0; i < scope.powerConsumersList.length; i++){
+				this.drawPowerConsumer(ctx, scope.powerConsumersList[i]);
 			}
-			for(var i = 0; i < batteriesList.length; i++){
-				this.drawBattery(ctx, batteriesList[i]);
+			for(var i = 0; i < scope.batteriesList.length; i++){
+				this.drawBattery(ctx, scope.batteriesList[i]);
 			}
-			for(var i = 0; i < resistorsList.length; i++){
+			for(var i = 0; i < scope.resistorsList.length; i++){
 				
-				this.drawResistor(ctx, resistorsList[i]);
+				this.drawResistor(ctx, scope.resistorsList[i]);
 			}
 			
 			
@@ -81,7 +82,7 @@ NetworkCanvas.prototype = {
 		drawPowerSupply:function(ctx, supply){
 			//alert("drawPowerSupply");
 			var nodeID = supply["nodeID"];
-			var node = nodesList.filter(function(v) {
+			var node = scope.nodesList.filter(function(v) {
 			    return v._id === nodeID; // filter out appropriate one
 			})[0];
 			var loc = {x : node["location"]["x"], y : node["location"]["y"]};
@@ -97,10 +98,10 @@ NetworkCanvas.prototype = {
 			//alert("drawTLine");
 			var nodeAID = tLine["nodeAID"];
 			var nodeBID = tLine["nodeBID"];
-			var nodeA = nodesList.filter(function(v) {
+			var nodeA = scope.nodesList.filter(function(v) {
 			    return v._id === nodeAID; // filter out appropriate one
 			})[0];
-			var nodeB = nodesList.filter(function(v) {
+			var nodeB = scope.nodesList.filter(function(v) {
 			    return v._id === nodeBID; // filter out appropriate one
 			})[0];
 			var loc = {x1 : nodeA["location"]["x"], y1 : nodeA["location"]["y"],
@@ -117,7 +118,7 @@ NetworkCanvas.prototype = {
 		drawPowerConsumer:function(ctx, consumer){
 			//alert("drawPowerSupply");
 			var nodeID = consumer["nodeID"];
-			var node = nodesList.filter(function(v) {
+			var node = scope.nodesList.filter(function(v) {
 			    return v._id === nodeID; // filter out appropriate one
 			})[0];
 			var loc = {x : node["location"]["x"], y : node["location"]["y"]};
@@ -132,7 +133,7 @@ NetworkCanvas.prototype = {
 		drawBattery:function(ctx, battery){
 			//alert("drawPowerSupply");
 			var nodeID = battery["nodeID"];
-			var node = nodesList.filter(function(v) {
+			var node = scope.nodesList.filter(function(v) {
 			    return v._id === nodeID; // filter out appropriate one
 			})[0];
 			var loc = {x : node["location"]["x"], y : node["location"]["y"]};
@@ -148,7 +149,7 @@ NetworkCanvas.prototype = {
 			//get the associated transmission line
 			var tLineID = resistor["tLineID"];
 			
-			var tLine = transmissionLinesList.filter(function(v){
+			var tLine = scope.transmissionLinesList.filter(function(v){
 				return v._id === tLineID;
 			})[0];
 			//alert(tLine);
@@ -156,11 +157,11 @@ NetworkCanvas.prototype = {
 			var nodeAID = tLine["nodeAID"];
 			var nodeBID = tLine["nodeBID"];
 			
-			var nodeA = nodesList.filter(function(v) {
+			var nodeA = scope.nodesList.filter(function(v) {
 			    return v._id === nodeAID; // filter out appropriate one
 			})[0];
 			
-			var nodeB = nodesList.filter(function(v) {
+			var nodeB = scope.nodesList.filter(function(v) {
 			    return v._id === nodeBID; // filter out appropriate one
 			})[0];
 			
