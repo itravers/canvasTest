@@ -25,15 +25,35 @@ function registerClicks(){
     });
 }
 
-function calculateClicked(){
-	
+function calculateClicked(timePassed){
+	var powerSupplies = scope.powerSuppliesList;
+	//alert(JSON.stringify(powerSupplies));
+	for(var i = 0; i < powerSupplies.length; i++) {
+		var supply = powerSupplies[i];
+		var node = getNodeFromPowerSupply(supply);
+		//alpha.1.A integrate time passed with pps to get interim node power
+		var interimPower = (supply.powerPerSecond * (timePassed/1000));
+		node.interimPower.push(interimPower);
+		//alpha.2.B fix total power
+		if(supply.totalPower > node.interimPower[node.interimPower.length - 1]){
+			supply.totalPower = supply.totalPower - node.interimPower[node.interimPower.length - 1];
+		}else{
+			node.interimPower[node.interimPower.length -1] = supply.totalPower;
+			supply.totalPower = 0;
+		}
+		
+	}
 	scope.$apply(function(){
-		scope.resistorsList[0].tLineID = "transmissionLine4";
-		scope.resistorsList[1].tLineID = "transmissionLine3";
-		scope.nodesList[0].totalPower = 50;
-		scope.batteriesList[0].nodeID = "node9";
+		
     });
 	networkCanvas.draw();
+}
+
+function getNodeFromPowerSupply(powerSupply){
+	var node = scope.nodesList.filter(function(v) {
+	    return v._id === powerSupply.nodeID; // filter out appropriate one
+	})[0];
+	return node;
 }
 
 
