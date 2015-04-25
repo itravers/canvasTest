@@ -72,9 +72,18 @@ NetworkCanvas.prototype = {
 		},
 		drawNode:function(ctx, node){
 			var loc = {x : node["location"]["x"], y : node["location"]["y"]};
+			
+			var size = 10;
+			/*var nodePower = node.totalPower;
+			var fillStyle = ctx.fillStyle;
+			ctx.fillStyle = "red";
+			ctx.font = "16px Arial";
+			ctx.fillText(nodePower, loc.x-(size/2), loc.y + size);
+			ctx.fillStyle = fillStyle;
+			*/
 			ctx.strokeStyle = 'red';
 			ctx.beginPath();
-			ctx.arc(loc.x,loc.y,10,0,2*Math.PI);
+			ctx.arc(loc.x,loc.y,size,0,2*Math.PI);
 			ctx.stroke();
 			ctx.strokeStyle = 'blue';
 		}
@@ -116,6 +125,17 @@ NetworkCanvas.prototype = {
 			var loc = {x1 : nodeA["location"]["x"], y1 : nodeA["location"]["y"],
 			           x2 : nodeB["location"]["x"], y2 : nodeB["location"]["y"]};
 			//alert(JSON.stringify(loc));
+			
+			var locMid = this.getMidPoint({x : loc.x1, y : loc.y1}, {x : loc.x2, y : loc.y2});
+			var size = 10;
+			var nodePower = nodeA.totalPower;
+			var fillStyle = ctx.fillStyle;
+			ctx.fillStyle = "blue";
+			ctx.font = "bold 16px Arial";
+			ctx.fillText(nodePower, locMid.x-(size/2), locMid.y - size);
+			ctx.fillStyle = fillStyle;
+			
+			
 			var style = ctx.strokeStyle;
 			ctx.strokeStyle = 'yellow';
 			ctx.beginPath();
@@ -132,10 +152,18 @@ NetworkCanvas.prototype = {
 			})[0];
 			var loc = {x : node["location"]["x"], y : node["location"]["y"]};
 			
+			var size = 30;
+			var nodePower = node.totalPower;
+			var fillStyle = ctx.fillStyle;
+			ctx.fillStyle = "blue";
+			ctx.font = "bold 16px Arial";
+			ctx.fillText(nodePower, loc.x-(size/2), loc.y - size);
+			ctx.fillStyle = fillStyle;
+			
 			var style = ctx.strokeStyle;
 			ctx.strokeStyle = 'BLUE';
 			ctx.beginPath();
-			ctx.arc(loc.x,loc.y,30,0,2*Math.PI);
+			ctx.arc(loc.x,loc.y,size,0,2*Math.PI);
 			ctx.stroke();
 			ctx.strokeStyle = style;
 		},
@@ -147,10 +175,18 @@ NetworkCanvas.prototype = {
 			})[0];
 			var loc = {x : node["location"]["x"], y : node["location"]["y"]};
 			
+			var size = 20;
+			var nodePower = node.totalPower;
+			var fillStyle = ctx.fillStyle;
+			ctx.fillStyle = "blue";
+			ctx.font = "bold 16px Arial";
+			ctx.fillText(nodePower, loc.x-(size/2), loc.y - size);
+			ctx.fillStyle = fillStyle;
+			
 			var style = ctx.strokeStyle;
 			ctx.strokeStyle = 'ORANGE';
 			ctx.beginPath();
-			ctx.arc(loc.x,loc.y,20,0,2*Math.PI);
+			ctx.arc(loc.x,loc.y,size,0,2*Math.PI);
 			ctx.stroke();
 			ctx.strokeStyle = style;
 		},
