@@ -26,6 +26,7 @@ function registerClicks(){
 }
 
 function calculateClicked(timePassed){
+	var deltaTime = timePassed;
 	var powerSupplies = scope.powerSuppliesList;
 	//alpha algorithm
 	for(var i = 0; i < powerSupplies.length; i++) {
@@ -33,7 +34,7 @@ function calculateClicked(timePassed){
 		var supply = powerSupplies[i];
 		var node = getNodeFromPowerSupply(supply);
 		//alpha.1.A integrate time passed with pps to get interim node power
-		var interimPower = (supply.powerPerSecond * (timePassed/1000));
+		var interimPower = (supply.powerPerSecond * (deltaTime/1000));
 		node.interimPower.push(interimPower);
 		//alpha.2.B fix total power
 		if(supply.totalPower > node.interimPower[node.interimPower.length - 1]){
@@ -42,7 +43,7 @@ function calculateClicked(timePassed){
 			node.interimPower[node.interimPower.length -1] = supply.totalPower;
 			supply.totalPower = 0;
 		}
-		calculateNeighbourNodes(node);
+		calculateNeighbourNodes(node, deltaTime);
 		resetNodesCalculation();
 	}
 	var nodes = scope.nodesList;
@@ -58,11 +59,13 @@ function calculateClicked(timePassed){
 		}
 		node.totalPower = totalPower;
 		node.interimPower[node.interimPower.length -1] = 3.14;
-		node.interimPower = [];
+		//node.interimPower = [];
 	}
 	
 	//newAlgorithm to balance total powers we try to equalize total powers in the nodes
 	equalizeNodePowers(nodes);
+	var tLines = scope.transmissionLinesList;
+	equalizeTLinePowers(tLines, deltaTime);
 	
 	scope.$apply(function(){
 		//scope.powerSuppliesList = powerSupplies;
@@ -102,7 +105,7 @@ function getNodeFromID(id){
 	return node;
 }
 
-function calculateNeighbourNodes(node){
+function calculateNeighbourNodes(node, deltaTime){
 	//alpha.2.C
 	var neighbours = getNeighboursFromNode(node);
 	if(neighbours.length == 0)return; //there are no neighbors to calculate
@@ -125,16 +128,16 @@ function calculateNeighbourNodes(node){
 		if(nnode.belongsToLine){
 			//calculate Power Transmission
 			var nodeB = getOtherTLineNode(nnode);
-			transferPower(nnode, nodeB);
+			transferPower(nnode, nodeB, deltaTime);
 			nnode.calculated = true;
-			calculateNeighbourNodes(nodeB);
+			calculateNeighbourNodes(nodeB, deltaTime);
 		}else if(nnode.belongsToConsumer){
 			//alert("nnode belongstoConsumer "+nnode._id);
 			//calculate n
 			//here is where we will make the consumer have power
 			nnode.calculated = true;
 		}else{
-			calculateNeighbourNodes(nnode);
+			calculateNeighbourNodes(nnode, deltaTime);
 			nnode.calculated = true; //makes sure the last node in graph is marked calculated
 		}
 	}
@@ -155,10 +158,30 @@ function getOtherTLineNode(node){
 }
 
 //transfers power from nodeA to nodeB based on the tLine inbetween.
-function transferPower(nodeA, nodeB){
-	var transferPower = nodeA.interimPower[nodeA.interimPower.length -1]/2;
+function transferPower(nodeA, nodeB, deltaTime){
+	/* test transfer
+	 var transferPower = nodeA.interimPower[nodeA.interimPower.length -1]/2;
 	nodeB.interimPower.push(transferPower);
 	nodeA.interimPower[nodeA.interimPower.length -1] = nodeA.interimPower[nodeA.interimPower.length -1] - transferPower;
+	 */
+	
+	var tLine = getTLineFromNode(nodeA);
+	var p1 = nodeA.interimPower[nodeA.interimPower.length -1];
+	var l = getDistance(nodeA, nodeB);
+	var s = deltaTime/1000;
+	var d = tLine.dParam;
+	var k = tLine.kParam;
+	
+	//if a resistor exists for this line, modify d and k
+	var resistor = getResistor(tLine);
+	if(resistor != undefined){
+		d = resistor.dParam;
+		k = resistor.kParam;
+	}
+	
+	var p = (s * p1) / (d^(l/k));
+	nodeB.interimPower[nodeB.interimPower.length -1] = p;
+
 }
 
 //returns a tline from our data with a matching id
@@ -247,6 +270,61 @@ function equalizeNodePowers(nodes){
 	for(var j = 0; j < nodes.length; j++){
 		var n = nodes[j];
 		n.equalized = false;
+	}
+}
+
+function getTLineFromNode(node){
+	var tLineID = getTLineIDFromNode(node);
+	var tLine = getTLineFromID(tLineID);
+	return tLine;
+}
+
+//returns the distance between two nodes
+function getDistance(nodeA, nodeB){
+	var x1 = nodeA.location.x;
+	var x2 = nodeB.location.x;
+	var y1 = nodeA.location.y;
+	var y2 = nodeB.location.y;
+	var d = Math.sqrt(((x2-x1)^2)+((y2-y1)^2));
+	return d;
+}
+
+//returns the resistor associated with tLine, or undefined if none
+function getResistor(tLine){
+	var resistors = scope.resistorsList;
+	for(var i = 0; i < resistors.length; i++){
+		if(resistors[i].tLineID == tLine._id)return resistors[i];
+	}
+}
+
+//loop through every transmission line and equalize powers from nodes, based on
+//the function
+function equalizeTLinePowers(tLines, deltaTime){
+	for(var i = 0; i < tLines.length; i++){
+		var tLine = tLines[i];
+		var nodes = getNodesFromTLine(tLine);
+		var nodeA = nodes[0];
+		var nodeB = nodes[1];
+		
+		var tLine = getTLineFromNode(nodeA);
+		var nodeAP1 = nodeA.totalPower;
+		var nodeBP1 = nodeB.totalPower;
+		var l = getDistance(nodeA, nodeB);
+		var s = deltaTime/1000;
+		var d = tLine.dParam;
+		var k = tLine.kParam;
+		
+		//if a resistor exists for this line, modify d and k
+		var resistor = getResistor(tLine);
+		if(resistor != undefined){
+			d = resistor.dParam;
+			k = resistor.kParam;
+		}
+		
+		var nodeAP = (s * nodeAP1) / (d^(l/k));
+		var nodeBP = (s * nodeBP1) / (d^(l/k)); 
+		nodeA.totalPower = nodeAP;
+		nodeB.totalPower = nodeBP;
 	}
 }
 
