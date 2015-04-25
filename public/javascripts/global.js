@@ -29,14 +29,9 @@ function calculateClicked(timePassed){
 	var powerSupplies = scope.powerSuppliesList;
 	//alpha algorithm
 	for(var i = 0; i < powerSupplies.length; i++) {
-	//for(var i = 1; i < 1; i++) {
-	//{
-		//var i = 1;
+	//{var i = 0; //test line
 		var supply = powerSupplies[i];
 		var node = getNodeFromPowerSupply(supply);
-		//var node = nodes.filter(function(v) {
-		//    return v._id === supply.nodeID; // filter out appropriate one
-		//})[0];
 		//alpha.1.A integrate time passed with pps to get interim node power
 		var interimPower = (supply.powerPerSecond * (timePassed/1000));
 		node.interimPower.push(interimPower);
@@ -47,17 +42,15 @@ function calculateClicked(timePassed){
 			node.interimPower[node.interimPower.length -1] = supply.totalPower;
 			supply.totalPower = 0;
 		}
-		
 		calculateNeighbourNodes(node);
 		resetNodesCalculation();
-		
 	}
 	
 	var nodes = scope.nodesList;
 	//beta algorithm
 	for(var i = 0; i < nodes.length; i++){
 		var node = nodes[i];
-		var totalPower = 0;
+		var totalPower = node.totalPower;
 		for(var j = 0; j < node.interimPower.length; j++){
 			totalPower += node.interimPower[j];
 		}
@@ -134,7 +127,7 @@ function calculateNeighbourNodes(node){
 			nnode.calculated = true;
 		}else{
 			calculateNeighbourNodes(nnode);
-			nnode.calculated = true;
+			nnode.calculated = true; //makes sure the last node in graph is marked calculated
 		}
 	}
 }
