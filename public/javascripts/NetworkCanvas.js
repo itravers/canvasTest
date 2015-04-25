@@ -1,4 +1,8 @@
 //Objects
+//to make a db object available here..
+//1. pull the object out of db in index.js and send to jade template
+//2. make new frontend js variable using the jade template
+//3. utilize that variable here ie batteriesList
 function NetworkCanvas (canvas, width, height){
 	//alert(JSON.stringify( nodesList ));
 	//alert(nodesList[0]["_id"]);
@@ -50,6 +54,10 @@ NetworkCanvas.prototype = {
 			}
 			for(var i = 0; i < batteriesList.length; i++){
 				this.drawBattery(ctx, batteriesList[i]);
+			}
+			for(var i = 0; i < resistorsList.length; i++){
+				
+				this.drawResistor(ctx, resistorsList[i]);
 			}
 			
 			
@@ -133,5 +141,46 @@ NetworkCanvas.prototype = {
 			ctx.arc(loc.x,loc.y,20,0,2*Math.PI);
 			ctx.stroke();
 			ctx.strokeStyle = style;
+		},
+		drawResistor:function(ctx, resistor){
+			//get the associated transmission line
+			var tLineID = resistor["tLineID"];
+			
+			var tLine = transmissionLinesList.filter(function(v){
+				return v._id === tLineID;
+			})[0];
+			//alert(tLine);
+			//get the associated nodes
+			var nodeAID = tLine["nodeAID"];
+			var nodeBID = tLine["nodeBID"];
+			
+			var nodeA = nodesList.filter(function(v) {
+			    return v._id === nodeAID; // filter out appropriate one
+			})[0];
+			
+			var nodeB = nodesList.filter(function(v) {
+			    return v._id === nodeBID; // filter out appropriate one
+			})[0];
+			
+			//get the locations from the nodes
+			var locA = {x : nodeA["location"]["x"], y : nodeA["location"]["y"]};
+			var locB = {x : nodeB["location"]["x"], y : nodeB["location"]["y"]};
+			var loc = this.getMidPoint(locA, locB);
+			
+			//var loc = getMidPoint(locA, locB);
+			var size = 10;
+			
+			 var style = ctx.fillStyle;
+			 ctx.fillStyle="BLACK";
+			 ctx.fillRect(loc.x-(size/2), loc.y-(size/2), size, size);
+			 ctx.fillStyle = style;
+
+			 
+		},
+		getMidPoint:function(locA, locB){
+			var x = (locA.x + locB.x)/2;
+			var y = (locA.y + locB.y)/2;
+			var loc = {x : x, y : y};
+			return loc;
 		}
 }
