@@ -368,7 +368,3 @@ function equalizeTLinePowers(tLines, deltaTime){
 		nodeB.totalPower = nodeBP;
 	}
 }
-
-
-
-

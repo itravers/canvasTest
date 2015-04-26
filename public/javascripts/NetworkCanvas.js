@@ -91,7 +91,8 @@ NetworkCanvas.prototype = {
 		}
 		,
 		drawPowerSupply:function(ctx, supply){
-			var size = 30;
+			var size = supply.totalPower;
+			size = this.map(size, 0, 100000, 20, 100);
 			//alert("drawPowerSupply");
 			var nodeID = supply["nodeID"];
 			var node = scope.nodesList.filter(function(v) {
@@ -104,7 +105,7 @@ NetworkCanvas.prototype = {
 			var fillStyle = ctx.fillStyle;
 			ctx.fillStyle = "blue";
 			ctx.font = "bold 16px Arial";
-			ctx.fillText(nodePower, loc.x-(size/2), loc.y - size);
+			ctx.fillText("ps.totalPower: "+supply.totalPower, loc.x+(size/1), loc.y);
 			ctx.fillStyle = fillStyle;
 			
 			var style = ctx.strokeStyle;
