@@ -369,8 +369,8 @@ function equalizeTLinePowers(tLines, deltaTime){
 			k = resistor.kParam;
 		}
 		
-		var nodeAP = (s * nodeAP1) / (d^(l/k));
-		var nodeBP = (s * nodeBP1) / (d^(l/k)); 
+		var nodeAP = ((s * nodeAP1) / Math.pow(d, (l/k)));
+		var nodeBP = ((s * nodeBP1) / Math.pow(d, (l/k))); 
 		nodeA.totalPower = nodeAP;
 		nodeB.totalPower = nodeBP;
 	}

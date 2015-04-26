@@ -7,7 +7,7 @@ db.resistors.drop()
 
 node1 = {
 	_id : "node1",
-	"location" : {"x": 200, "y": 100},
+	"location" : {"x": 400, "y": 100},
 	"totalPower" : 0,
 	"interimPower" :[0],
 	"neighbours" :[],
@@ -28,7 +28,7 @@ db.powerSupplies.insert(powerSupply1)
 
 node2 = {
 	_id : "node2",
-	"location" : {"x": 1000, "y": 100},
+	"location" : {"x": 800, "y": 100},
 	"totalPower" : 0,
 	"interimPower" :[0],
 	"neighbours" :[],
@@ -49,7 +49,7 @@ db.powerSupplies.insert(powerSupply2)
 
 node3 = {
 	_id : "node3",
-	"location" : {"x": 200, "y": 100},
+	"location" : {"x": 400, "y": 100},
 	"totalPower" : 0,
 	"interimPower" :[0],
 	"neighbours" :["node1"],
@@ -113,18 +113,27 @@ db.nodes.update(
     }
 )
 
-node5 = {
+node6 = {
 	_id : "node6",
-	"location" : {"x": 1000, "y": 100},
+	"location" : {"x": 800, "y": 100},
 	"totalPower" : 0,
 	"interimPower" :[0],
-	"neighbours" :[],
+	"neighbours" :["node2"],
 	"calculated" : false,
 	"belongsToLine" : true,
 	"belongsToConsumer" : false,
 	"belongsToPowerSupply" : false
 }
 db.nodes.insert(node6)
+
+db.nodes.update(
+    { _id: "node2" },
+    {
+      $push: {
+        neighbours: "node6"
+      }
+    }
+)
 
 transmissionLine2 = {
 	_id : "transmissionLine2",
@@ -135,5 +144,425 @@ transmissionLine2 = {
 }
 db.transmissionLines.insert(transmissionLine2)
 
+node7 = {
+	_id : "node7",
+	"location" : {"x": 400, "y": 100},
+	"totalPower" : 0,
+	"interimPower" :[0],
+	"neighbours" :["node1", "node3"],
+	"calculated" : false,
+	"belongsToLine" : true,
+	"belongsToConsumer" : false,
+	"belongsToPowerSupply" : false
+}
+db.nodes.insert(node7)
+
+db.nodes.update(
+    { _id: "node1" },
+    {
+      $push: {
+        neighbours: "node7"
+      }
+    }
+)
+
+db.nodes.update(
+    { _id: "node3" },
+    {
+      $push: {
+        neighbours: "node7"
+      }
+    }
+)
+
+node8 = {
+	_id : "node8",
+	"location" : {"x": 600, "y": 250},
+	"totalPower" : 0,
+	"interimPower" :[0],
+	"neighbours" :[],
+	"calculated" : false,
+	"belongsToLine" : true,
+	"belongsToConsumer" : false,
+	"belongsToPowerSupply" : false
+}
+db.nodes.insert(node8)
+
+transmissionLine3 = {
+	_id : "transmissionLine3",
+	"nodeAID" : "node7",
+	"nodeBID" : "node8",
+	"dParam" : 2,
+    "kParam" : 2000	
+}
+db.transmissionLines.insert(transmissionLine3)
+
+node9 = {
+	_id : "node9",
+	"location" : {"x": 600, "y": 100},
+	"totalPower" : 0,
+	"interimPower" :[0],
+	"neighbours" :["node4", "node5"],
+	"calculated" : false,
+	"belongsToLine" : true,
+	"belongsToConsumer" : false,
+	"belongsToPowerSupply" : false
+}
+db.nodes.insert(node9)
+
+db.nodes.update(
+    { _id: "node4" },
+    {
+      $push: {
+        neighbours: "node9"
+      }
+    }
+)
+
+db.nodes.update(
+    { _id: "node5" },
+    {
+      $push: {
+        neighbours: "node9"
+      }
+    }
+)
+
+node10 = {
+	_id : "node10",
+	"location" : {"x": 600, "y": 250},
+	"totalPower" : 0,
+	"interimPower" :[0],
+	"neighbours" :["node8"],
+	"calculated" : false,
+	"belongsToLine" : true,
+	"belongsToConsumer" : false,
+	"belongsToPowerSupply" : false
+}
+db.nodes.insert(node10)
+
+db.nodes.update(
+    { _id: "node8" },
+    {
+      $push: {
+        neighbours: "node10"
+      }
+    }
+)
+
+transmissionLine4 = {
+	_id : "transmissionLine4",
+	"nodeAID" : "node9",
+	"nodeBID" : "node10",
+	"dParam" : 2,
+    "kParam" : 2000	
+}
+db.transmissionLines.insert(transmissionLine4)
+
+node11 = {
+	_id : "node11",
+	"location" : {"x": 800, "y": 100},
+	"totalPower" : 0,
+	"interimPower" :[0],
+	"neighbours" :["node2", "node6"],
+	"calculated" : false,
+	"belongsToLine" : true,
+	"belongsToConsumer" : false,
+	"belongsToPowerSupply" : false
+}
+db.nodes.insert(node11)
+
+db.nodes.update(
+    { _id: "node2" },
+    {
+      $push: {
+        neighbours: "node11"
+      }
+    }
+)
+
+db.nodes.update(
+    { _id: "node6" },
+    {
+      $push: {
+        neighbours: "node11"
+      }
+    }
+)
+
+node12 = {
+	_id : "node12",
+	"location" : {"x": 600, "y": 250},
+	"totalPower" : 0,
+	"interimPower" :[0],
+	"neighbours" :["node8", "node10"],
+	"calculated" : false,
+	"belongsToLine" : true,
+	"belongsToConsumer" : false,
+	"belongsToPowerSupply" : false
+}
+db.nodes.insert(node12)
+
+db.nodes.update(
+    { _id: "node8" },
+    {
+      $push: {
+        neighbours: "node12"
+      }
+    }
+)
+
+db.nodes.update(
+    { _id: "node10" },
+    {
+      $push: {
+        neighbours: "node12"
+      }
+    }
+)
+
+transmissionLine5 = {
+	_id : "transmissionLine5",
+	"nodeAID" : "node11",
+	"nodeBID" : "node12",
+	"dParam" : 2,
+    "kParam" : 2000	
+}
+db.transmissionLines.insert(transmissionLine5)
+
+node13 = {
+	_id : "node13",
+	"location" : {"x": 600, "y": 250},
+	"totalPower" : 0,
+	"interimPower" :[0],
+	"neighbours" :["node8", "node10", "node12"],
+	"calculated" : false,
+	"belongsToLine" : true,
+	"belongsToConsumer" : false,
+	"belongsToPowerSupply" : false
+}
+db.nodes.insert(node13)
+
+db.nodes.update(
+    { _id: "node8" },
+    {
+      $push: {
+        neighbours: "node13"
+      }
+    }
+)
+
+db.nodes.update(
+    { _id: "node10" },
+    {
+      $push: {
+        neighbours: "node13"
+      }
+    }
+)
+
+db.nodes.update(
+    { _id: "node12" },
+    {
+      $push: {
+        neighbours: "node13"
+      }
+    }
+)
+
+node14 = {
+	_id : "node14",
+	"location" : {"x": 600, "y": 350},
+	"totalPower" : 0,
+	"interimPower" :[0],
+	"neighbours" :[],
+	"calculated" : false,
+	"belongsToLine" : true,
+	"belongsToConsumer" : false,
+	"belongsToPowerSupply" : false
+}
+db.nodes.insert(node14)
+
+transmissionLine6 = {
+	_id : "transmissionLine6",
+	"nodeAID" : "node13",
+	"nodeBID" : "node14",
+	"dParam" : 2,
+    "kParam" : 2000	
+}
+db.transmissionLines.insert(transmissionLine6)
+
+node15 = {
+	_id : "node15",
+	"location" : {"x": 600, "y": 350},
+	"totalPower" : 0,
+	"interimPower" :[0],
+	"neighbours" :["node14"],
+	"calculated" : false,
+	"belongsToLine" : true,
+	"belongsToConsumer" : false,
+	"belongsToPowerSupply" : false
+}
+db.nodes.insert(node15)
+
+db.nodes.update(
+    { _id: "node14" },
+    {
+      $push: {
+        neighbours: "node15"
+      }
+    }
+)
+
+node16 = {
+	_id : "node16",
+	"location" : {"x": 600, "y": 350},
+	"totalPower" : 0,
+	"interimPower" :[0],
+	"neighbours" :["node14", "node15"],
+	"calculated" : false,
+	"belongsToLine" : true,
+	"belongsToConsumer" : false,
+	"belongsToPowerSupply" : false
+}
+db.nodes.insert(node16)
+
+db.nodes.update(
+    { _id: "node14" },
+    {
+      $push: {
+        neighbours: "node16"
+      }
+    }
+)
+
+db.nodes.update(
+    { _id: "node15" },
+    {
+      $push: {
+        neighbours: "node16"
+      }
+    }
+)
+
+node17 = {
+	_id : "node17",
+	"location" : {"x": 400, "y": 500},
+	"totalPower" : 0,
+	"interimPower" :[0],
+	"neighbours" :[],
+	"calculated" : false,
+	"belongsToLine" : true,
+	"belongsToConsumer" : false,
+	"belongsToPowerSupply" : false
+}
+db.nodes.insert(node17)
+
+transmissionLine7 = {
+	_id : "transmissionLine7",
+	"nodeAID" : "node15",
+	"nodeBID" : "node17",
+	"dParam" : 2,
+    "kParam" : 2000	
+}
+db.transmissionLines.insert(transmissionLine7)
 
 
+
+node19 = {
+	_id : "node19",
+	"location" : {"x": 400, "y": 500},
+	"totalPower" : 0,
+	"interimPower" :[0],
+	"neighbours" :["node17"],
+	"calculated" : false,
+	"belongsToLine" : false,
+	"belongsToConsumer" : true,
+	"belongsToPowerSupply" : false
+}
+db.nodes.insert(node19)
+
+db.nodes.update(
+    { _id: "node17" },
+    {
+      $push: {
+        neighbours: "node19"
+      }
+    }
+)
+
+powerConsumer1 = {
+	_id : "powerConsumer1",
+	nodeID : "node19",
+	consumptionPerSec : 100,
+	suppliedPower : 0
+}
+db.powerConsumers.insert(powerConsumer1)
+
+
+db.nodes.update(
+    { _id: "node18" },
+    {
+      $push: {
+        neighbours: "node20"
+      }
+    }
+)
+
+powerConsumer2 = {
+	_id : "powerConsumer2",
+	nodeID : "node20",
+	consumptionPerSec : 100,
+	suppliedPower : 0
+}
+db.powerConsumers.insert(powerConsumer2)
+
+db.powerConsumers.update(
+    { _id: "powerConsumer1" },
+    {
+      $set: {
+		consumptionPerSec: 200
+      }
+    }
+)
+
+
+db.powerConsumers.update(
+    { _id: "powerConsumer2" },
+    {
+      $set: {
+        nodeID: "node16",
+		consumptionPerSec: 500
+      }
+    }
+)
+
+db.nodes.update(
+    { _id: "node16" },
+    {
+      $set: {
+        belongsToLine: false,
+		belongsToConsumer: true
+      }
+    }
+)
+
+db.powerSupplies.update(
+    { _id: "powerSupply1" },
+    {
+      $set: {
+        powerPerSecond: 2000,
+		totalPower: 100000
+      }
+    }
+)
+
+db.powerSupplies.update(
+    { _id: "powerSupply2" },
+    {
+      $set: {
+        powerPerSecond: 20000,
+		totalPower: 1000000
+      }
+    }
+)

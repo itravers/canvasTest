@@ -74,7 +74,7 @@ NetworkCanvas.prototype = {
 			var loc = {x : node["location"]["x"], y : node["location"]["y"]};
 			
 			var size = node.totalPower;//*(timePassed/1000);
-			size = this.map(size, 0, 1000, 5, 300);
+			size = this.map(size, 0, 15000, 2, 200);
 			/*
 			var nodePower = node.totalPower;
 			var fillStyle = ctx.fillStyle;
@@ -92,7 +92,7 @@ NetworkCanvas.prototype = {
 		,
 		drawPowerSupply:function(ctx, supply){
 			var size = supply.totalPower;
-			size = this.map(size, 0, 100000, 20, 100);
+			size = this.map(size, 0, 1000000, 2, 150);
 			//alert("drawPowerSupply");
 			var nodeID = supply["nodeID"];
 			var node = scope.nodesList.filter(function(v) {
