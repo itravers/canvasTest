@@ -8,7 +8,8 @@ node1 = {
 		"neighbours" :[],
 		"calculated" : false,
 		"belongsToLine" : false,
-		"belongsToConsumer" : false
+		"belongsToConsumer" : false,
+		"belongsToPowerSupply" : true
 }
 db.nodes.insert(node1)
 
@@ -28,7 +29,8 @@ node2 = {
 		"neighbours" :["node1"],
 		"calculated" : false,
 		"belongsToLine" : true,
-		"belongsToConsumer" : false
+		"belongsToConsumer" : false,
+		"belongsToPowerSupply" : false
 }
 db.nodes.insert(node2)
 
@@ -49,7 +51,8 @@ node3 = {
 		"neighbours" :[],
 		"calculated" : false,
 		"belongsToLine" : true,
-		"belongsToConsumer" : false
+		"belongsToConsumer" : false,
+		"belongsToPowerSupply" : false
 }
 db.nodes.insert(node3)
 
@@ -70,7 +73,8 @@ node4 = {
 		"neighbours" :["node3"],
 		"calculated" : false,
 		"belongsToLine" : true,
-		"belongsToConsumer" : false
+		"belongsToConsumer" : false,
+		"belongsToPowerSupply" : false
 }
 db.nodes.insert(node4)
 
@@ -91,7 +95,8 @@ node5 = {
 		"neighbours" :[],
 		"calculated" : false,
 		"belongsToLine" : true,
-		"belongsToConsumer" : false
+		"belongsToConsumer" : false,
+		"belongsToPowerSupply" : false
 }
 db.nodes.insert(node5)
 
@@ -112,7 +117,8 @@ node6 = {
 		"neighbours" :["node5"],
 		"calculated" : false,
 		"belongsToLine" : false,
-		"belongsToConsumer" : true
+		"belongsToConsumer" : true,
+		"belongsToPowerSupply" : false
 }
 db.nodes.insert(node6)
 
@@ -141,7 +147,8 @@ node7 = {
 		"neighbours" :[],
 		"calculated" : false,
 		"belongsToLine" : false,
-		"belongsToConsumer" : false
+		"belongsToConsumer" : false,
+		"belongsToPowerSupply" : true
 }
 db.nodes.insert(node7)
 
@@ -161,7 +168,8 @@ node8 = {
 		"neighbours" :["node7"],
 		"calculated" : false,
 		"belongsToLine" : true,
-		"belongsToConsumer" : false
+		"belongsToConsumer" : false,
+		"belongsToPowerSupply" : false
 }
 db.nodes.insert(node8)
 
@@ -182,7 +190,8 @@ node9 = {
 		"neighbours" :[],
 		"calculated" : false,
 		"belongsToLine" : true,
-		"belongsToConsumer" : false
+		"belongsToConsumer" : false,
+		"belongsToPowerSupply" : false
 }
 db.nodes.insert(node9)
 
@@ -203,7 +212,8 @@ node10 = {
 		"neighbours" :["node9"],
 		"calculated" : false,
 		"belongsToLine" : true,
-		"belongsToConsumer" : false
+		"belongsToConsumer" : false,
+		"belongsToPowerSupply" : false
 }
 db.nodes.insert(node10)
 
@@ -224,7 +234,8 @@ node11 = {
 		"neighbours" :["node5", "node6"],
 		"calculated" : false,
 		"belongsToLine" : true,
-		"belongsToConsumer" : false
+		"belongsToConsumer" : false,
+		"belongsToPowerSupply" : false
 }
 db.nodes.insert(node11)
 
@@ -263,7 +274,8 @@ node12 = {
 		"neighbours" :["node3", "node4"],
 		"calculated" : false,
 		"belongsToLine" : false,
-		"belongsToConsumer" : true
+		"belongsToConsumer" : true,
+		"belongsToPowerSupply" : false
 }
 db.nodes.insert(node12)
 
@@ -318,6 +330,15 @@ db.resistors.insert(resistor2)
 
 db.powerSupplies.update(
     { _id: "powerSupply1" },
+    {
+      $set: {
+        powerPerSecond: 100
+      }
+    }
+)
+
+db.powerSupplies.update(
+    { _id: "powerSupply2" },
     {
       $set: {
         powerPerSecond: 100

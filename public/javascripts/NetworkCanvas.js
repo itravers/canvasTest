@@ -73,14 +73,16 @@ NetworkCanvas.prototype = {
 		drawNode:function(ctx, node){
 			var loc = {x : node["location"]["x"], y : node["location"]["y"]};
 			
-			var size = 10;
+			var size = node.totalPower;
+			size = this.map(size, 0, 1000, 5, 100);
+			/*
 			var nodePower = node.totalPower;
 			var fillStyle = ctx.fillStyle;
 			ctx.fillStyle = "red";
 			ctx.font = "16px Arial";
-			ctx.fillText(nodePower, loc.x-(size/2), loc.y + size);
+			ctx.fillText("nodePower "+nodePower, loc.x+(size*2), loc.y + size*2);
 			ctx.fillStyle = fillStyle;
-			
+			*/
 			ctx.strokeStyle = 'red';
 			ctx.beginPath();
 			ctx.arc(loc.x,loc.y,size,0,2*Math.PI);
@@ -126,6 +128,7 @@ NetworkCanvas.prototype = {
 			           x2 : nodeB["location"]["x"], y2 : nodeB["location"]["y"]};
 			//alert(JSON.stringify(loc));
 			
+			/*
 			var locMid = this.getMidPoint({x : loc.x1, y : loc.y1}, {x : loc.x2, y : loc.y2});
 			var size = 10;
 			var nodePower = nodeA.totalPower;
@@ -134,7 +137,7 @@ NetworkCanvas.prototype = {
 			ctx.font = "bold 16px Arial";
 			ctx.fillText(nodePower, locMid.x-(size/2), locMid.y - size);
 			ctx.fillStyle = fillStyle;
-			
+			*/
 			
 			var style = ctx.strokeStyle;
 			ctx.strokeStyle = 'yellow';
@@ -152,6 +155,7 @@ NetworkCanvas.prototype = {
 			})[0];
 			var loc = {x : node["location"]["x"], y : node["location"]["y"]};
 			
+			/*
 			var size = 30;
 			var nodePower = node.totalPower;
 			var fillStyle = ctx.fillStyle;
@@ -159,13 +163,15 @@ NetworkCanvas.prototype = {
 			ctx.font = "bold 16px Arial";
 			ctx.fillText(nodePower, loc.x-(size/2), loc.y - size);
 			ctx.fillStyle = fillStyle;
+			*/
 			
-			var size = 30;
+			var size = consumer.suppliedPower;
+			size = this.map(size, 0, 500, 20, 100);
 			var nodePower = node.totalPower;
 			var fillStyle = ctx.fillStyle;
 			ctx.fillStyle = "blue";
 			ctx.font = "bold 16px Arial";
-			ctx.fillText("pc suppliedPower: "+ consumer.suppliedPower, loc.x-(size/2), loc.y - size*2);
+			ctx.fillText("pc suppliedPower/frame: "+ consumer.suppliedPower, loc.x+(size*1), loc.y);
 			ctx.fillStyle = fillStyle;
 			
 			var style = ctx.strokeStyle;
@@ -238,5 +244,8 @@ NetworkCanvas.prototype = {
 			var y = (locA.y + locB.y)/2;
 			var loc = {x : x, y : y};
 			return loc;
+		},
+		map:function (num, in_min ,in_max ,out_min ,out_max ) {
+			  return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 		}
 }

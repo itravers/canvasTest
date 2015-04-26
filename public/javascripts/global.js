@@ -252,7 +252,7 @@ function resetNodesCalculation(){
 function equalizeNodePowers(nodes){
 	for(var i = 0; i < nodes.length; i++){
 		var node = nodes[i];
-		if(!node.equalized){
+		if(!node.equalized || i == nodes.length-1){ //we need to equalize the last node no matter what
 			var neighbours = getNeighboursFromNode(node);
 			var filteredNeighbours = [];
 			//filter neighbours based on if they have already been equalized
@@ -264,6 +264,10 @@ function equalizeNodePowers(nodes){
 					//we do want this in our filtered array.
 					filteredNeighbours.push(neighbour);
 				}
+			}
+			
+			if(i == nodes.length-1){ //if this is the last node we want to balance it with all neighbors
+				filteredNeighbours = neighbours;
 			}
 			
 			
@@ -285,7 +289,12 @@ function equalizeNodePowers(nodes){
 				n.equalized = true; //set neighbour as equalized
 			}
 		}
-		
+		//add all power in nodes connected to a power supply, back to the power supply
+		if(node.belongsToPowerSupply){
+			var supply = getPowerSupplyFromNode(node);
+			supply.totalPower += node.totalPower;
+			node.totalPower = 0;
+		}
 	}
 	
 	//now that node powers are equalized for this calculation we need to reset their
@@ -294,6 +303,14 @@ function equalizeNodePowers(nodes){
 	for(var j = 0; j < nodes.length; j++){
 		var n = nodes[j];
 		n.equalized = false;
+	}
+}
+
+function getPowerSupplyFromNode(node){
+	var supplies = scope.powerSuppliesList;
+	for(var i = 0; i < supplies.length; i++){
+		var supply = supplies[i];
+		if(supply.nodeID == node._id)return supply;
 	}
 }
 
