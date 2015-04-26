@@ -69,7 +69,7 @@ function calculateClicked(timePassed){
 	networkCanvas.draw(timePassed);
 	
 	var newTimePassed = $("#timePassed").val();
-	//setTimeout(function() { calculateClicked(newTimePassed); }, newTimePassed);
+	setTimeout(function() { calculateClicked(newTimePassed); }, newTimePassed);
 }
 
 function calculateConsumers(deltaTime){
