@@ -128,7 +128,7 @@ db.nodes.update(
 powerConsumer1 = {
 	_id : "powerConsumer1",
 	nodeID : "node6",
-	consumptionPerSec : 10,
+	consumptionPerSec : 100,
 	suppliedPower : 0
 }
 db.powerConsumers.insert(powerConsumer1)
@@ -316,7 +316,14 @@ db.resistors.insert(resistor2)
 
 
 
-
+db.powerSupplies.update(
+    { _id: "powerSupply1" },
+    {
+      $set: {
+        powerPerSecond: 100
+      }
+    }
+)
 
 
 

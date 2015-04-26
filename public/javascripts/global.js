@@ -48,19 +48,13 @@ function calculateClicked(timePassed){
 	}
 	var nodes = scope.nodesList;
 	
-	
-	
 	//beta algorithm
-	for(var i = 0; i < nodes.length; i++){
-		var node = nodes[i];
-		var totalPower = node.totalPower;
-		for(var j = 0; j < node.interimPower.length; j++){
-			totalPower += node.interimPower[j];
-		}
-		node.totalPower = totalPower;
-		node.interimPower[node.interimPower.length -1] = 3.14;
-		//node.interimPower = [];
-	}
+	addUpInterimPowers(nodes);
+	
+	//delta algorithm
+	calculateConsumers(deltaTime);
+	
+	
 	
 	//newAlgorithm to balance total powers we try to equalize total powers in the nodes
 	equalizeNodePowers(nodes);
@@ -71,6 +65,36 @@ function calculateClicked(timePassed){
 		//scope.powerSuppliesList = powerSupplies;
     });
 	networkCanvas.draw();
+}
+
+function calculateConsumers(deltaTime){
+	var consumers = scope.powerConsumersList;
+	for(var i = 0; i < consumers.length; i++){
+		var consumer = consumers[i];
+		var node = getNodeFromID(consumer.nodeID);
+		var powerDesired = consumer.consumptionPerSec * (deltaTime/1000);
+		if(powerDesired > node.totalPower){ //we want more power than is available
+			powerDesired = node.totalPower;  //so we take all the power
+		}else{
+			//powerDesired = powerDesired
+		}
+		consumer.suppliedPower = powerDesired;
+		node.totalPower -= powerDesired;
+	}
+}
+
+function addUpInterimPowers(nodes){
+	//beta algorithm
+	for(var i = 0; i < nodes.length; i++){
+		var node = nodes[i];
+		var totalPower = node.totalPower;
+		for(var j = 0; j < node.interimPower.length; j++){
+			totalPower += node.interimPower[j];
+		}
+		node.totalPower = totalPower;
+		node.interimPower[node.interimPower.length -1] = 3.14;
+		node.interimPower = [];
+	}
 }
 
 function getNodeFromPowerSupply(powerSupply){

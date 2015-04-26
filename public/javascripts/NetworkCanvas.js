@@ -160,6 +160,14 @@ NetworkCanvas.prototype = {
 			ctx.fillText(nodePower, loc.x-(size/2), loc.y - size);
 			ctx.fillStyle = fillStyle;
 			
+			var size = 30;
+			var nodePower = node.totalPower;
+			var fillStyle = ctx.fillStyle;
+			ctx.fillStyle = "blue";
+			ctx.font = "bold 16px Arial";
+			ctx.fillText("pc suppliedPower: "+ consumer.suppliedPower, loc.x-(size/2), loc.y - size*2);
+			ctx.fillStyle = fillStyle;
+			
 			var style = ctx.strokeStyle;
 			ctx.strokeStyle = 'BLUE';
 			ctx.beginPath();
