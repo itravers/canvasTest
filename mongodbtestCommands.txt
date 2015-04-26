@@ -292,7 +292,7 @@ db.powerSupplies.update(
     { _id: "powerSupply1" },
     {
       $set: {
-        powerPerSecond: 100
+        powerPerSecond: 200
       }
     }
 )
@@ -301,8 +301,17 @@ db.powerSupplies.update(
     { _id: "powerSupply2" },
     {
       $set: {
-	    totalPower: 100000,
-        powerPerSecond: 100
+	    totalPower: 10000,
+        powerPerSecond: 200
+      }
+    }
+)
+
+db.powerConsumers.update(
+    { _id: "powerConsumer1" },
+    {
+      $set: {
+	    consumptionPerSec : 500
       }
     }
 )

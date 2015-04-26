@@ -13,7 +13,7 @@ $(document).ready(function() {
 
 function setupCanvas(){
 	
-	networkCanvas = new NetworkCanvas(document.getElementById("canvas"), 1000, 550);
+	networkCanvas = new NetworkCanvas(document.getElementById("canvas"), 1200, 600);
 	
 }
 
