@@ -266,6 +266,55 @@ transmissionLine4 = {
 }
 db.transmissionLines.insert(transmissionLine4)
 
+
+
+resistor1 = {
+		_id : "resistor1",
+		"tLineID" : "transmissionLine1",
+		"dParam" : 3,
+		"kParam" : 2000
+}
+
+db.resistors.insert(resistor1)
+
+resistor2 = {
+		_id : "resistor2",
+		"tLineID" : "transmissionLine2",
+		"dParam" : 3,
+		"kParam" : 2000
+}
+
+db.resistors.insert(resistor2)
+
+
+
+db.powerSupplies.update(
+    { _id: "powerSupply1" },
+    {
+      $set: {
+        powerPerSecond: 100
+      }
+    }
+)
+
+db.powerSupplies.update(
+    { _id: "powerSupply2" },
+    {
+      $set: {
+	    totalPower: 100000,
+        powerPerSecond: 100
+      }
+    }
+)
+
+
+
+
+
+
+
+
+
 node12 = {
 		_id : "node12",
 		"location" : {"x": 450, "y": 200},
@@ -307,44 +356,6 @@ bat1 = {
 }
 
 db.batteries.insert(bat1)
-
-resistor1 = {
-		_id : "resistor1",
-		"tLineID" : "transmissionLine1",
-		"dParam" : 2,
-		"kParam" : 3000
-}
-
-db.resistors.insert(resistor1)
-
-resistor2 = {
-		_id : "resistor2",
-		"tLineID" : "transmissionLine2",
-		"dParam" : 2,
-		"kParam" : 3000
-}
-
-db.resistors.insert(resistor2)
-
-
-
-db.powerSupplies.update(
-    { _id: "powerSupply1" },
-    {
-      $set: {
-        powerPerSecond: 100
-      }
-    }
-)
-
-db.powerSupplies.update(
-    { _id: "powerSupply2" },
-    {
-      $set: {
-        powerPerSecond: 100
-      }
-    }
-)
 
 
 

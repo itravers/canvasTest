@@ -26,6 +26,8 @@ function registerClicks(){
 }
 
 function calculateClicked(timePassed){
+	//alert("calculateClicked"+timePassed);
+	if(timePassed == undefined)timePassed = 1000;
 	var deltaTime = timePassed;
 	var powerSupplies = scope.powerSuppliesList;
 	//alpha algorithm
@@ -64,7 +66,10 @@ function calculateClicked(timePassed){
 	scope.$apply(function(){
 		//scope.powerSuppliesList = powerSupplies;
     });
-	networkCanvas.draw();
+	networkCanvas.draw(timePassed);
+	
+	var newTimePassed = $("#timePassed").val();
+	//setTimeout(function() { calculateClicked(newTimePassed); }, newTimePassed);
 }
 
 function calculateConsumers(deltaTime){
@@ -203,7 +208,8 @@ function transferPower(nodeA, nodeB, deltaTime){
 		k = resistor.kParam;
 	}
 	
-	var p = (s * p1) / (d^(l/k));
+	//;
+	var p = ((s * p1) / Math.pow(d, (l/k)));
 	nodeB.interimPower[nodeB.interimPower.length -1] = p;
 
 }
@@ -292,8 +298,8 @@ function equalizeNodePowers(nodes){
 		//add all power in nodes connected to a power supply, back to the power supply
 		if(node.belongsToPowerSupply){
 			var supply = getPowerSupplyFromNode(node);
-			supply.totalPower += node.totalPower;
-			node.totalPower = 0;
+			supply.totalPower += node.totalPower/2;
+			node.totalPower /= 2;
 		}
 	}
 	
@@ -326,7 +332,8 @@ function getDistance(nodeA, nodeB){
 	var x2 = nodeB.location.x;
 	var y1 = nodeA.location.y;
 	var y2 = nodeB.location.y;
-	var d = Math.sqrt(((x2-x1)^2)+((y2-y1)^2));
+	
+	var d = Math.sqrt((Math.pow((x2-x1), 2))+(Math.pow((y2-y1), 2)));
 	return d;
 }
 

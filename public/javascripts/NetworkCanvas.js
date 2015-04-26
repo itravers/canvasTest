@@ -37,14 +37,14 @@ NetworkCanvas.prototype = {
 		setMenuItem:function (menuItem){        
 			this.menu.push(menuItem);
 		},
-		draw:function(){
+		draw:function(timePassed){
 			var scope = angular.element($("#canvasTestApp")).scope();
 			ctx = this.canvas.getContext("2d");
 			this.fillBackground("gray");
 			//alert(scope.nodesList);
 			//this.drawMenu(ctx);
 			for(var i = 0; i < scope.nodesList.length; i++){
-				this.drawNode(ctx, scope.nodesList[i]);
+				this.drawNode(ctx, timePassed, scope.nodesList[i]);
 			}
 			for(var i = 0; i < scope.powerSuppliesList.length; i++){
 				this.drawPowerSupply(ctx, scope.powerSuppliesList[i]);
@@ -53,7 +53,7 @@ NetworkCanvas.prototype = {
 				this.drawTransmissionLine(ctx, scope.transmissionLinesList[i]);
 			}
 			for(var i = 0; i < scope.powerConsumersList.length; i++){
-				this.drawPowerConsumer(ctx, scope.powerConsumersList[i]);
+				this.drawPowerConsumer(ctx, timePassed, scope.powerConsumersList[i]);
 			}
 			for(var i = 0; i < scope.batteriesList.length; i++){
 				this.drawBattery(ctx, scope.batteriesList[i]);
@@ -70,11 +70,11 @@ NetworkCanvas.prototype = {
 				this.menu[i].draw(ctx);
 			}
 		},
-		drawNode:function(ctx, node){
+		drawNode:function(ctx, timePassed, node){
 			var loc = {x : node["location"]["x"], y : node["location"]["y"]};
 			
-			var size = node.totalPower;
-			size = this.map(size, 0, 1000, 5, 100);
+			var size = node.totalPower;//*(timePassed/1000);
+			size = this.map(size, 0, 1000, 5, 300);
 			/*
 			var nodePower = node.totalPower;
 			var fillStyle = ctx.fillStyle;
@@ -148,7 +148,7 @@ NetworkCanvas.prototype = {
 			ctx.stroke();
 			ctx.strokeStyle = style;
 		},
-		drawPowerConsumer:function(ctx, consumer){
+		drawPowerConsumer:function(ctx, timePassed, consumer){
 			//alert("drawPowerSupply");
 			var nodeID = consumer["nodeID"];
 			var node = scope.nodesList.filter(function(v) {
@@ -172,7 +172,7 @@ NetworkCanvas.prototype = {
 			var fillStyle = ctx.fillStyle;
 			ctx.fillStyle = "blue";
 			ctx.font = "bold 16px Arial";
-			ctx.fillText("pc suppliedPower/frame: "+ consumer.suppliedPower, loc.x+(size*1), loc.y);
+			ctx.fillText("pc suppliedPower/frame: "+ consumer.suppliedPower/(timePassed/1000), loc.x+(size*1), loc.y);
 			ctx.fillStyle = fillStyle;
 			
 			var style = ctx.strokeStyle;
