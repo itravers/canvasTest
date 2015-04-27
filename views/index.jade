@@ -3,3 +3,8 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+    h1 Pages
+      ul
+        each page in pages
+          li #{page.title} 
+            a(href="#{page.link}") #{page.link}

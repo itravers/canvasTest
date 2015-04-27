@@ -3,7 +3,16 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'Index', 
+	  					pages: [{title : "Canvas Test", 
+	  							 link : "/canvasTest"},
+	  							{title : "Network Test",
+	  							 link : "/network"}]});
+});
+
+/* GET networkTest page. */
+router.get('/networkTest', function(req, res, next) {
+  res.render('networkTest', {title: "NetworkTest"});
 });
 
 /* GET home page. */

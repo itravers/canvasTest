@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  script(src='/javascripts/jquery.min.js')
+  script(src='/javascripts/angular.js')
+  script(type='text/javascript').
+    //give the angularjs scope access to all our lists
+    var app = angular.module("networkTestApp", []); 
+    app.controller('networkTestCtrl', function($scope) {
+      
+    })
+  script(src='/javascripts/networkTest.js')
+  script(src='/javascripts/networkTestCanvas.js')
+  div(data-ng-app="networkTestApp", data-ng-controller="networkTestCtrl")
+    h1= title
+    p Welcome to #{title}
+    |   
+    canvas#canvas
+ 
+    div.calculateBox
+      form(name="calculate")
+        input(type="range", min="1", max="1000", value="1000", name="timePassed", id="timePassed", data-ng-model="timeElapsed").
+        p {{timeElapsed}} 
+      button#calculate.
+        Calculate
