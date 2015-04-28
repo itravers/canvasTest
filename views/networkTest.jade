@@ -17,11 +17,11 @@ block content
         Calculate
     div.getData
       form(name="getData")
-        button(data-ng-click="networkData.doClick(item, $event)")#getData.
+        button(data-ng-click="networkData.getDataClick(item, $event)")#getData.
           Get Data
     div.drawCanvas
       form(name="drawCanvas")
-        button#drawCanvas.
+        button(data-ng-click="networkData.drawNetworkClick(item, $event)")#drawCanvas.
           Draw Canvas
     canvas#canvas
     div#networkData

@@ -1,13 +1,21 @@
-var networkTestCanvas;
+
 var scope;
 var dataService;
+//var networkTestCanvas;
 
 var app = angular.module("networkTestApp", []); 
 
 // ANGULAR STUFF=====================================================
 app.controller('networkTestCtrl', function($scope, $http, dataService) {
+	$scope.networkData = {};
+	$scope.networkData.data = {};
+	$scope.networkData.getDataClick = loadRemoteData;
+	$scope.networkTestCanvas = new NetworkTestCanvas(document.getElementById("canvas"), 1200, 800);
+	
+	loadRemoteData();
     // I apply the remote data to the local scope.
     function applyRemoteData( data ) {
+    	if($scope.networkData != undefined)
         $scope.networkData.data = data;
     }
 
@@ -18,25 +26,12 @@ app.controller('networkTestCtrl', function($scope, $http, dataService) {
             .then(
                 function( data ) {
                     applyRemoteData( data );
+                    $scope.networkTestCanvas.draw(data);
                 }
             )
         ;
     }
-    $scope.networkData = {};
-    $scope.networkData.doClick = loadRemoteData;
-
-	/*
-	$scope.networkData = {};
-    $scope.networkData.doClick = function(item, event) {
-    	
-    	 var responsePromise = $http.get("/networkTest/getNetworkData.json");
-         responsePromise.success(function(data, status, headers, config) {
-        	 $scope.networkData.data = data;
-         });
-         responsePromise.error(function(data, status, headers, config) {
-             alert("AJAX failed!");
-         });
-    };*/
+    
 });
 
 app.service(
@@ -94,54 +89,15 @@ app.service(
         }
     );
 
-
 // DOM Ready =============================================================
 $(document).ready(function() {
 	scope = angular.element($("#networkTestApp")).scope();
-	//setupAngularControllers();
-	setupCanvas();
-	registerServices();
-	registerClicks();
+	
 });
 
 // Functions =============================================================
-function getData(){
-	
-}
 
-function registerServices(){
-	dataService = angular.module("dataService", []);
-	dataService.service('dataService', ['$http', function ($http) {
-		 var responsePromise = $http.get("/networkTest/getNetworkData.json");
-         responsePromise.success(function(data, status, headers, config) {
-        	 $scope.networkData.data = data;
-        	
-         });
-         responsePromise.error(function(data, status, headers, config) {
-             alert("AJAX failed!");
-         });
-        
-	}]);
-}
 
-function setupCanvas(){
-	networkTestCanvas = new NetworkTestCanvas(document.getElementById("canvas"), 1200, 800);
-}
-
-function registerClicks(){
-	$( "#calculate" ).click(function() {
-		  var timePassed = $("#timePassed").val();
-		 // alert("timePassed: "+ timePassed);
-		  calculateClicked(timePassed);
-    });
-	
-	
-	  $( "#drawCanvas" ).click(function() {
-
-			//alert("drawCanvas Clicked");
-		  networkTestCanvas.draw();
-       });
-}
 
 function calculateClicked(timePassed){
 	alert("you Clicked 'calculate' at " + timePassed + " ms.");

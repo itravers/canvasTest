@@ -4,14 +4,10 @@
 //2. make new frontend js variable using the jade template
 //3. utilize that variable here ie batteriesList
 function NetworkTestCanvas (canvas, width, height){
-	//alert(JSON.stringify( scope.nodesList ));
-	//alert(scope.nodesList[0]["_id"]);
-	//alert(powerSuppliesList[0]["_id"]);
-	
 	this.canvas = canvas;
 	this.ctx = canvas.getContext("2d");
 	this.setupCanvas(width, height);
-	this.draw();
+	//this.draw();
 }
 NetworkTestCanvas.prototype = {    
 		constructor: NetworkTestCanvas,    
@@ -23,13 +19,12 @@ NetworkTestCanvas.prototype = {
 			this.ctx.fillStyle = color;
 			this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
 		},
-		draw:function(){
-			var scope = angular.element($("#networkTestApp")).scope();
+		draw:function(data){
+			//var scope = angular.element($("#networkTestApp")).scope();
 			ctx = this.canvas.getContext("2d");
-			this.fillBackground("white");
-			//alert("this is the scope " + scope);
-			//if(scope.networkData =! undefined)
-			this.drawNetworkData(scope.networkData.data);
+			this.fillBackground("black");
+				this.drawNetworkData(data);
+			
 		},
 		getMidPoint:function(locA, locB){
 			var x = (locA.x + locB.x)/2;
@@ -41,15 +36,22 @@ NetworkTestCanvas.prototype = {
 			  return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 		},
 		drawNetworkData:function(data){
+			//var data = datum.data;
 			if(data != undefined){
-				var powerSupplies = data.powerSupplies;
+				var supplies = 0;
+				supplies = data.powerSupplies;
 				var powerConsumers = data.powerConsumers;
 				var connectors = data.connectors;
 				var transmissionLines = data.transmissionLines;
 				var resistors = data.resistors;
 				var batteries = data.batteries;
-				for(var i = 0; i < powerSupplies.length; i++) this.drawPowerSupply(powerSupplies[i]);
-				for(var i = 0; i < powerConsumers.length; i++) this.drawPowerConsumer(powerConsumers[i]);
+				if(supplies == undefined || powerConsumers == undefined){
+					
+				}else{
+					for(var i = 0; i < supplies.length; i++) this.drawPowerSupply(supplies[i]);
+					for(var i = 0; i < powerConsumers.length; i++) this.drawPowerConsumer(powerConsumers[i]);
+				}
+				
 			}
 		},
 		drawPowerSupply:function(powerSupply){
