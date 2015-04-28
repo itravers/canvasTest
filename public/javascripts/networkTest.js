@@ -10,13 +10,18 @@ app.controller('networkTestCtrl', function($scope, $http, dataService) {
 	$scope.networkData = {};
 	$scope.networkData.data = {};
 	$scope.networkData.getDataClick = loadRemoteData;
+	$scope.networkData.drawNetworkClick = drawNetwork;
 	$scope.networkTestCanvas = new NetworkTestCanvas(document.getElementById("canvas"), 1200, 800);
 	
 	loadRemoteData();
+	
     // I apply the remote data to the local scope.
     function applyRemoteData( data ) {
-    	if($scope.networkData != undefined)
         $scope.networkData.data = data;
+    }
+    
+    function drawNetwork(){
+    	$scope.networkTestCanvas.draw($scope.networkData.data);
     }
 
     // I load the remote data from the server.
@@ -25,8 +30,9 @@ app.controller('networkTestCtrl', function($scope, $http, dataService) {
     	dataService.getData()
             .then(
                 function( data ) {
-                    applyRemoteData( data );
-                    $scope.networkTestCanvas.draw(data);
+                    //applyRemoteData( data );
+                	$scope.networkData.data = data;
+                	drawNetwork();
                 }
             )
         ;
