@@ -96,13 +96,3 @@ $(document).ready(function() {
 });
 
 // Functions =============================================================
-
-
-
-function calculateClicked(timePassed){
-	alert("you Clicked 'calculate' at " + timePassed + " ms.");
-}
-
-function getDataClicked(){
-	alert("you Clicked 'getData'");
-}
