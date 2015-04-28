@@ -7,6 +7,7 @@ function NetworkTestCanvas (canvas, width, height){
 	this.canvas = canvas;
 	this.ctx = canvas.getContext("2d");
 	this.setupCanvas(width, height);
+	this.mousePos = {};
 	//this.draw();
 }
 NetworkTestCanvas.prototype = {    
@@ -14,7 +15,16 @@ NetworkTestCanvas.prototype = {
 		setupCanvas:function(width, height){        
 			this.ctx.canvas.width = width;
 			this.ctx.canvas.height = height;
-		},    
+			this.ctx.canvas.onmousemove = function (e) {
+			   // alert("mouseMoved " + JSON.stringify(e));
+			};
+			
+			this.ctx.canvas.addEventListener('mousemove', function(evt) {
+		       this.mousePos = getMousePos(canvas, evt);
+		       var message = 'Mouse position: ' + this.mousePos.x + ',' + this.mousePos.y;
+		       writeMessage(message, canvas);
+		      }, false);
+		}, 
 		fillBackground:function (color){        
 			this.ctx.fillStyle = color;
 			this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
@@ -154,3 +164,22 @@ NetworkTestCanvas.prototype = {
 			}
 		}
 }
+  function getMousePos(canvas, evt) {
+    var rect = canvas.getBoundingClientRect();
+    return {
+      x: evt.clientX - rect.left,
+      y: evt.clientY - rect.top
+    };
+  }
+
+function writeMessage(message, canvas) {
+	ctx = canvas.getContext("2d");
+	var style = ctx.fillStyle;
+	ctx.fillStyle="black";
+	ctx.fillRect(0, 0, 300, 30);
+	ctx.fillStyle = style;
+	
+    ctx.font = '18pt Calibri';
+    ctx.fillStyle = 'white';
+    ctx.fillText(message, 10, 25);
+ }
