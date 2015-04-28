@@ -20,6 +20,11 @@ app.controller('networkTestCtrl', function($scope, $http, dataService) {
         $scope.networkData.data = data;
     }
     
+    //turn data taken from database into objects.
+    function objectifyRemoteData(data){
+    	
+    }
+    
     function drawNetwork(){
     	$scope.networkTestCanvas.draw($scope.networkData.data);
     }
@@ -31,7 +36,8 @@ app.controller('networkTestCtrl', function($scope, $http, dataService) {
             .then(
                 function( data ) {
                     //applyRemoteData( data );
-                	$scope.networkData.data = data;
+                	//$scope.networkData.data = data;
+                	objectifyRemoteDate(data);
                 	drawNetwork();
                 }
             )

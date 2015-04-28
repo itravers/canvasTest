@@ -1,8 +1,3 @@
-//Objects
-//to make a db object available here..
-//1. pull the object out of db in index.js and send to jade template
-//2. make new frontend js variable using the jade template
-//3. utilize that variable here ie batteriesList
 function NetworkTestCanvas (canvas, width, height){
 	this.canvas = canvas;
 	this.ctx = canvas.getContext("2d");
