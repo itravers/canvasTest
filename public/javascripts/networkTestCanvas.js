@@ -26,7 +26,7 @@ NetworkTestCanvas.prototype = {
 		draw:function(timePassed){
 			var scope = angular.element($("#networkTestApp")).scope();
 			ctx = this.canvas.getContext("2d");
-			this.fillBackground("gray");
+			this.fillBackground("white");
 			
 		},
 		getMidPoint:function(locA, locB){
