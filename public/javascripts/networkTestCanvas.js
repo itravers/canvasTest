@@ -27,8 +27,8 @@ NetworkTestCanvas.prototype = {
 			var scope = angular.element($("#networkTestApp")).scope();
 			ctx = this.canvas.getContext("2d");
 			this.fillBackground("white");
-			//this.draw
-			
+			//alert("this is the scope " + scope);
+			this.drawNetworkData(scope.networkData.data);
 		},
 		getMidPoint:function(locA, locB){
 			var x = (locA.x + locB.x)/2;
@@ -38,5 +38,39 @@ NetworkTestCanvas.prototype = {
 		},
 		map:function (num, in_min ,in_max ,out_min ,out_max ) {
 			  return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+		},
+		drawNetworkData:function(data){
+			if(data != undefined){
+				var powerSupplies = data.powerSupplies;
+				var powerConsumers = data.powerConsumers;
+				var connectors = data.connectors;
+				var transmissionLines = data.transmissionLines;
+				var resistors = data.resistors;
+				var batteries = data.batteries;
+				for(var i = 0; i < powerSupplies.length; i++) this.drawPowerSupply(powerSupplies[i]);
+				for(var i = 0; i < powerConsumers.length; i++) this.drawPowerConsumer(powerConsumers[i]);
+			}
+		},
+		drawPowerSupply:function(powerSupply){
+			var loc = powerSupply.location;
+			var totalPower = powerSupply.totalPower;
+			var chargeSupplied = powerSupply.chargeSupplied;
+			var totalPowerCircleSize = this.map(totalPower, 0 ,100000,2 ,150 );
+			this.drawCircle(totalPowerCircleSize, loc, "red");
+		},
+		drawPowerConsumer:function(powerConsumer){
+			var loc = powerConsumer.location;
+			var consumerCharge = powerConsumer.consumerCharge;
+			var totalPowerCircleSize = this.map(consumerCharge, 0 ,1000,2 ,250 );
+			this.drawCircle(totalPowerCircleSize, loc, "blue");
+		},
+		drawCircle:function(size, loc, color){
+			ctx = this.canvas.getContext("2d");
+			var style = ctx.strokeStyle;
+			ctx.strokeStyle = color;
+			ctx.beginPath();
+			ctx.arc(loc.x,loc.y,size,0,2*Math.PI);
+			ctx.stroke();
+			ctx.strokeStyle = style;
 		}
 }

@@ -3,22 +3,16 @@ var scope;
 
 var app = angular.module("networkTestApp", []); 
 app.controller('networkTestCtrl', function($scope, $http) {
-	var networkData = 0;
 	$scope.networkData = {};
     $scope.networkData.doClick = function(item, event, scope) {
-    	alert("Angular Click");
     	 var responsePromise = $http.get("/networkTest/getNetworkData.json");
          responsePromise.success(function(data, status, headers, config) {
-        	 alert(JSON.stringify(data));
         	 $scope.networkData.data = data;
          });
          responsePromise.error(function(data, status, headers, config) {
              alert("AJAX failed!");
          });
     };
-   //
-    
-
 });
 
 // DOM Ready =============================================================
@@ -31,7 +25,7 @@ $(document).ready(function() {
 
 // Functions =============================================================
 function setupCanvas(){
-	networkTestCanvas = new NetworkTestCanvas(document.getElementById("canvas"), 1200, 600);
+	networkTestCanvas = new NetworkTestCanvas(document.getElementById("canvas"), 1200, 800);
 }
 
 function registerClicks(){
@@ -43,6 +37,8 @@ function registerClicks(){
 	
 	
 	  $( "#drawCanvas" ).click(function() {
+
+			//alert("drawCanvas Clicked");
 		  networkTestCanvas.draw();
        });
 }

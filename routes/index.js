@@ -106,11 +106,11 @@ function sendNetworkData(req, res){
 							connectorsList = docs;
 							returnList = {
 									"connectors" : connectorsList, 
-									"powerSuppliesList" : powerSuppliesList,
-									"transmissionLinesList" : transmissionLinesList,
-									"powerConsumersList" : powerConsumersList,
-									"batteriesList" : batteriesList,
-									"resistorsList" : resistorsList
+									"powerSupplies" : powerSuppliesList,
+									"transmissionLines" : transmissionLinesList,
+									"powerConsumers" : powerConsumersList,
+									"batteries" : batteriesList,
+									"resistors" : resistorsList
 							};
 							res.send(returnList);
 						});
