@@ -4,3 +4,43 @@ db.powerConsumers.drop()
 db.transmissionLines.drop()
 db.batteries.drop()
 db.resistors.drop()
+
+powerSupply1 = {
+	_id : "powerSupply1",
+	type : "powerSupply",
+	totalPower : 100000,
+	chargeSupplied : 100,
+	location : {x: 200, y: 200},
+	connections : ["tLine1"],
+	charges : [],
+	chargeSet : false
+}
+
+db.powerSupplies.insert(powerSupply1);
+
+tLine1 = {
+	_id : "tLine1",
+	type : "tLine",
+	conA : "powerSupply1",
+	conB : "battery1",
+	dParam : 1,
+	kParam : 2000,
+	resistor : "NONE",
+	chargeSet : false
+}
+
+db.transmissionLines.insert(tLine1)
+
+battery1 = {
+	_id : "battery1",
+	type : "battery",
+	totalPower : 1000,
+	chargeSupplied : 100,
+	consumerCharge: 100,
+	location : {x: 500, y: 200},
+	connections : ["tLine1", "tLine2"],
+	charges : [],
+	chargeSet : false
+}
+
+db.batteries.insert(battery1)
