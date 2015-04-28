@@ -3,12 +3,6 @@ extends layout
 block content
   script(src='/javascripts/jquery.min.js')
   script(src='/javascripts/angular.js')
-  script(type='text/javascript').
-    //give the angularjs scope access to all our lists
-    var app = angular.module("networkTestApp", []); 
-    app.controller('networkTestCtrl', function($scope) {
-      
-    })
   script(src='/javascripts/networkTest.js')
   script(src='/javascripts/networkTestCanvas.js')
   div(data-ng-app="networkTestApp", data-ng-controller="networkTestCtrl")

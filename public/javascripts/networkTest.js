@@ -1,6 +1,11 @@
 var networkTestCanvas;
 var scope;
 
+var app = angular.module("networkTestApp", []); 
+app.controller('networkTestCtrl', function($scope) {
+  
+})
+
 // DOM Ready =============================================================
 $(document).ready(function() {
 	scope = angular.element($("#networkTestApp")).scope();

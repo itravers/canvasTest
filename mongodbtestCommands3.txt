@@ -1,0 +1,6 @@
+db.nodes.drop()
+db.powerSupplies.drop()
+db.powerConsumers.drop()
+db.transmissionLines.drop()
+db.batteries.drop()
+db.resistors.drop()
