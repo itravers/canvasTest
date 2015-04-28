@@ -28,6 +28,7 @@ NetworkTestCanvas.prototype = {
 			ctx = this.canvas.getContext("2d");
 			this.fillBackground("white");
 			//alert("this is the scope " + scope);
+			//if(scope.networkData =! undefined)
 			this.drawNetworkData(scope.networkData.data);
 		},
 		getMidPoint:function(locA, locB){
