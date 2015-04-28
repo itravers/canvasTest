@@ -3,20 +3,20 @@ var scope;
 
 var app = angular.module("networkTestApp", []); 
 app.controller('networkTestCtrl', function($scope, $http) {
+	var networkData = 0;
 	$scope.networkData = {};
-    $scope.networkData.doClick = function(item, event) {
+    $scope.networkData.doClick = function(item, event, scope) {
     	alert("Angular Click");
     	 var responsePromise = $http.get("/networkTest/getNetworkData.json");
          responsePromise.success(function(data, status, headers, config) {
         	 alert(JSON.stringify(data));
-             $scope.networkData.fromServer = data.title;
+        	 $scope.networkData.data = data;
          });
          responsePromise.error(function(data, status, headers, config) {
              alert("AJAX failed!");
          });
     };
-
-       
+   //
     
 
 });
@@ -41,10 +41,10 @@ function registerClicks(){
 		  calculateClicked(timePassed);
     });
 	
-	/*//handle with anguar instead of jquery
-	  $( "#getData" ).click(function() {
-		  getDataClicked();
-       });*/
+	
+	  $( "#drawCanvas" ).click(function() {
+		  networkTestCanvas.draw();
+       });
 }
 
 function calculateClicked(timePassed){

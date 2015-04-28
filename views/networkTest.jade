@@ -21,3 +21,13 @@ block content
       form(name="getData")
         button(data-ng-click="networkData.doClick(item, $event)")#getData.
           Get Data
+    div.drawCanvas
+      form(name="drawCanvas")
+        button#drawCanvas.
+          Draw Canvas
+    div#networkData
+      p
+        ul
+          li(ng-repeat="item in networkData.data").
+            {{item}}
+        

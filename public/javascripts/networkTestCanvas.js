@@ -23,10 +23,11 @@ NetworkTestCanvas.prototype = {
 			this.ctx.fillStyle = color;
 			this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
 		},
-		draw:function(timePassed){
+		draw:function(){
 			var scope = angular.element($("#networkTestApp")).scope();
 			ctx = this.canvas.getContext("2d");
 			this.fillBackground("white");
+			//this.draw
 			
 		},
 		getMidPoint:function(locA, locB){
