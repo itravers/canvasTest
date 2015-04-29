@@ -46,7 +46,7 @@ NetworkTestCanvas.prototype = {
 				var supplies = 0;
 				supplies = networkData.powerSupplies;
 				var powerConsumers = networkData.powerConsumers;
-				var connectors = data.connectors;
+				var connectors = networkData.connectors;
 				var transmissionLines = data.transmissionLines;
 				var resistors = data.resistors;
 				var batteries = data.batteries;
@@ -116,7 +116,7 @@ NetworkTestCanvas.prototype = {
 			this.drawCircle(consumerChargeSize, loc, "blue");
 		},
 		drawConnector:function(connector){
-			var loc = connector.location;
+			var loc = connector.getLocation();
 			this.drawCircle(5, loc, "green");
 		},
 		drawCircle:function(size, loc, color){

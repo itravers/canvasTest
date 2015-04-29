@@ -18,9 +18,9 @@ app.controller('networkTestCtrl', function($scope, $http, dataService) {
 	
     // I apply the remote data to the local scope.
     function applyRemoteData( data ) {
-    	var powerSupplies = data.powerSupplies;
-    	$scope.networkData.powerSupplies = objectifyRemoteData(powerSupplies);
+    	$scope.networkData.powerSupplies = objectifyRemoteData(data.powerSupplies);
     	$scope.networkData.powerConsumers = objectifyRemoteData(data.powerConsumers);
+    	$scope.networkData.connectors = objectifyRemoteData(data.connectors);
         $scope.networkData.data = data;
     }
     
@@ -36,6 +36,9 @@ app.controller('networkTestCtrl', function($scope, $http, dataService) {
     		}else if(d.type == "powerConsumer"){
     			var pc = new PowerConsumer(d);
     			objectifiedData.push(pc);
+    		}else if(d.type == "connector"){
+    			var c = new NetworkNode(d);
+    			objectifiedData.push(c);
     		}
     	}
     	//objectifiedData[0].distributeCharge();
