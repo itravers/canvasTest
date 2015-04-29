@@ -24,7 +24,7 @@ app.controller('networkTestCtrl', function($scope, $http, dataService) {
     	$scope.networkData.transmissionLines = objectifyRemoteData(data.transmissionLines);
     	$scope.networkData.connectors = objectifyRemoteData(data.connectors);
     	$scope.networkData.batteries = objectifyRemoteData(data.batteries);
-        $scope.networkData.data = data;
+       // $scope.networkData.data = data;
     }
     
     //turn data taken from database into objects.

@@ -41,8 +41,6 @@ NetworkTestCanvas.prototype = {
 			  return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 		},
 		drawNetworkData:function(networkData){
-			var data = networkData.data;
-			if(data != undefined){
 				var supplies = 0;
 				supplies = networkData.powerSupplies;
 				var powerConsumers = networkData.powerConsumers;
@@ -63,8 +61,6 @@ NetworkTestCanvas.prototype = {
 				for(var i = 0; i < batteries.length; i++) this.drawBattery(batteries[i]);
 				for(var i = 0; i < transmissionLines.length; i++) this.drawTransmissionLine(transmissionLines[i], data);
 				for(var i = 0; i < resistors.length; i++) this.drawResistor(resistors[i], data);
-				
-			}
 		},
 		drawResistor:function(r, data){
 			var tLineID = r.getTLine();
