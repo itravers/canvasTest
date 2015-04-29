@@ -57,16 +57,12 @@ NetworkTestCanvas.prototype = {
 				data.push(transmissionLines);
 				data.push(resistors);
 				data.push(batteries);
-				if(supplies == undefined || powerConsumers == undefined){
-					
-				}else{
-					for(var i = 0; i < supplies.length; i++) this.drawPowerSupply(supplies[i]);
-					for(var i = 0; i < powerConsumers.length; i++) this.drawPowerConsumer(powerConsumers[i]);
-					for(var i = 0; i < connectors.length; i++) this.drawConnector(connectors[i]);
-					for(var i = 0; i < batteries.length; i++) this.drawBattery(batteries[i]);
-					for(var i = 0; i < transmissionLines.length; i++) this.drawTransmissionLine(transmissionLines[i], data);
-					for(var i = 0; i < resistors.length; i++) this.drawResistor(resistors[i], data);
-				}
+				for(var i = 0; i < supplies.length; i++) this.drawPowerSupply(supplies[i]);
+				for(var i = 0; i < powerConsumers.length; i++) this.drawPowerConsumer(powerConsumers[i]);
+				for(var i = 0; i < connectors.length; i++) this.drawConnector(connectors[i]);
+				for(var i = 0; i < batteries.length; i++) this.drawBattery(batteries[i]);
+				for(var i = 0; i < transmissionLines.length; i++) this.drawTransmissionLine(transmissionLines[i], data);
+				for(var i = 0; i < resistors.length; i++) this.drawResistor(resistors[i], data);
 				
 			}
 		},
@@ -106,8 +102,8 @@ NetworkTestCanvas.prototype = {
 		},
 		drawPowerSupply:function(powerSupply){
 			var loc = powerSupply.getLocation();
-			var totalPower = powerSupply.totalPower;
-			var chargeSupplied = powerSupply.chargeSupplied;
+			var totalPower = powerSupply.getTotalPower();
+			var chargeSupplied = powerSupply.getChargeSupplied();
 			var totalPowerCircleSize = this.map(totalPower, 0 ,100000,2 ,150 );
 			var chargeSuppliedCircleSize = this.map(chargeSupplied, 0 ,1000,2 ,250 );
 			this.drawCircle(totalPowerCircleSize, loc, "red");
@@ -152,7 +148,7 @@ NetworkTestCanvas.prototype = {
 				var list = data[i];
 				for(var n = 0; n < list.length; n++){
 					var item = list[n];
-					if(item._id == id){
+					if(item._id == id || (item.getID != undefined && item.getID() == id)){
 						return item;
 					}
 				}
