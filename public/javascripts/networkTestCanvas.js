@@ -92,6 +92,9 @@ NetworkTestCanvas.prototype = {
 			var chargeSuppliedCircleSize = this.map(chargeSupplied, 0 ,1000,2 ,250 );
 			var totalPowerCircleSize = this.map(totalPower, 0 ,100000,2 ,250 );
 			var consumerChargeSize = this.map(consumerCharge, 0 ,1000 ,2 ,200 );
+			var totalCharge = battery.getTotalCharge();
+			var totalChargeCircleSize = this.map(totalCharge, 0 ,1000,2 , 250);
+			this.drawCircle(totalChargeCircleSize, loc, "white");
 			this.drawCircle(totalPowerCircleSize, loc, "red");
 			this.drawCircle(chargeSuppliedCircleSize, loc, "yellow");
 			this.drawCircle(consumerChargeSize, loc, "blue");
@@ -101,9 +104,9 @@ NetworkTestCanvas.prototype = {
 			var totalPower = powerSupply.getTotalPower();
 			var chargeSupplied = powerSupply.getChargeSupplied();
 			var totalCharge = powerSupply.getTotalCharge();
-			var totalChargeCircleSize = this.map(totalCharge, 0 ,1000,2 ,500 );
+			var totalChargeCircleSize = this.map(totalCharge, 0 ,1000,2 , 250);
 			var totalPowerCircleSize = this.map(totalPower, 0 ,100000,2 ,150 );
-			var chargeSuppliedCircleSize = this.map(chargeSupplied, 0 ,1000,2 ,250 );
+			var chargeSuppliedCircleSize = this.map(chargeSupplied, 0 ,1000,10 ,250 );
 			this.drawCircle(totalPowerCircleSize, loc, "red");
 			this.drawCircle(chargeSuppliedCircleSize, loc, "yellow");
 			this.drawCircle(totalChargeCircleSize, loc, "white");
@@ -111,11 +114,17 @@ NetworkTestCanvas.prototype = {
 		drawPowerConsumer:function(powerConsumer){
 			var loc = powerConsumer.getLocation();
 			var consumerCharge = powerConsumer.getConsumerCharge();
+			var totalCharge = powerConsumer.getTotalCharge();
+			var totalChargeCircleSize = this.map(totalCharge, 0 ,1000,2 , 250);
 			var consumerChargeSize = this.map(consumerCharge, 0 ,1000,2 ,250 );
 			this.drawCircle(consumerChargeSize, loc, "blue");
+			this.drawCircle(totalChargeCircleSize, loc, "white");
 		},
 		drawConnector:function(connector){
 			var loc = connector.getLocation();
+			var totalCharge = connector.getTotalCharge();
+			var totalChargeCircleSize = this.map(totalCharge, 0 ,1000,2 , 250);
+			this.drawCircle(totalChargeCircleSize, loc, "white");
 			this.drawCircle(5, loc, "green");
 		},
 		drawCircle:function(size, loc, color){

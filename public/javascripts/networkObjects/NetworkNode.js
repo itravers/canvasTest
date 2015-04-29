@@ -17,12 +17,12 @@ NetworkNode.prototype = {
 			if(!this.getChargedSet()){//this node hasn't already been charged and distributed
 				var numCon = this.getConnections().length;
 				this.setCharge(supply, charge);
-				//var newCharge;
-				//if(numCon > 1 && supply != this){
-				//	newCharge = charge / (numCon+1);
-				//}else{
-					var newCharge = charge / numCon;
-				//}
+				var newCharge;
+				if(numCon > 1 && supply != this){
+					newCharge = charge / (numCon-1);
+				}else{
+					 newCharge = charge / numCon;
+				}
 				
 				for(var i = 0; i < numCon; i++){
 					var conID = this.connections[i];

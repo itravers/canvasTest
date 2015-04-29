@@ -71,6 +71,7 @@ app.controller('networkTestCtrl', function($scope, $http, dataService) {
     
     function calculateClick(){
     	$scope.networkData.powerSupplies[0].distributeCharge();
+    	drawNetwork();
     }
 
     // I load the remote data from the server.

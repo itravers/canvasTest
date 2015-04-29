@@ -74,6 +74,9 @@ Battery.prototype = {
 	    },
 	    setType:function(type){
 	    	this.prototype.setType(type);
+	    }, 
+	    getTotalCharge:function(){
+	    	return this.prototype.getTotalCharge();
 	    }
 
 };
