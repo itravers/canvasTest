@@ -16,16 +16,50 @@ TransmissionLine.prototype = {
 		constructor: TransmissionLine,
 		distributeCharge:function(supply, charge){  
 			if(this.chargeSet != true){//this has already been charged, ignore it if so
-				var newCharge = this.calculateTransfer(charge, this.conA, this.conB);
 				var con = this.getFirstUnchargedConnector();
+				var con2ID = this.getOtherConID(con);
+				var newCharge = this.calculateTransfer(charge, con.getID(), con2ID);
 				if(con == undefined) return; //there are no uncharged connectors on this power line
 				this.chargeSet = true;
 				con.distributeCharge(supply, newCharge);
 			}
 			
 		},
-		calculateTransfer:function(charge, con1, con2){
-			return charge;
+		calculateTransfer:function(charge, con1ID, con2ID){
+			var connectorA = getConnectorFromID(this.conA);
+			var connectorB = getConnectorFromID(this.conB);
+			var locA = connectorA.getLocation();
+			var locB = connectorB.getLocation();
+			var l = this.getDistance(locA, locB);
+			var d = this.dParam;
+			var k = this.kParam;
+			
+			if(this.resistor != "NONE"){
+				var r = getConnectorFromID(this.resistor);
+				k = r.getKParam();
+				d = r.getDParam();
+			}
+			
+			
+			var tCharge = charge / (Math.pow(d, (l/k))); //my formula lover
+			
+			return tCharge;
+		},
+		getOtherConID:function(conID){
+			if(conID == this.conA){
+				return this.conB;
+			}else{
+				return this.conA;
+			}
+		},//returns the distance between two nodes
+		getDistance:function(locA, locB){
+			var x1 = locA.x;
+			var x2 = locB.x;
+			var y1 = locA.y;
+			var y2 = locB.y;
+			
+			var d = Math.sqrt((Math.pow((x2-x1), 2))+(Math.pow((y2-y1), 2)));
+			return d;
 		},
 		getFirstUnchargedConnector:function(){
 			var connectorA = getConnectorFromID(this.conA);

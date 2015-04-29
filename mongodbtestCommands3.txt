@@ -10,7 +10,7 @@ powerSupply1 = {
 	_id : "powerSupply1",
 	type : "powerSupply",
 	totalPower : 100000,
-	chargeSupplied : 100,
+	chargeSupplied : 1000,
 	location : {x: 200, y: 200},
 	connections : ["tLine1"],
 	charges : [{supply: "powerSupplyTest", charge: 0}],
@@ -24,8 +24,8 @@ tLine1 = {
 	type : "tLine",
 	conA : "powerSupply1",
 	conB : "battery1",
-	dParam : 1,
-	kParam : 2000,
+	dParam : 10,
+	kParam : 1000,
 	resistor : "NONE",
 	chargeSet : false
 }
@@ -50,8 +50,8 @@ tLine2 = {
 	type : "tLine",
 	conA : "battery1",
 	conB : "powerConsumer1",
-	dParam : 1,
-	kParam : 2000,
+	dParam : 10,
+	kParam : 1000,
 	resistor : "resistor1",
 	chargeSet : false
 }
@@ -61,8 +61,8 @@ resistor1 = {
 	_id : "resistor1",
 	type: "resistor",
 	tLine : "tLine2",
-	dParam : 2,
-	kParam : 2000
+	dParam : 1,
+	kParam : 1000
 }
 db.resistors.insert(resistor1)
 
@@ -82,8 +82,8 @@ tLine3 = {
 	type : "tLine",
 	conA : "battery1",
 	conB : "connector1",
-	dParam : 1,
-	kParam : 2000,
+	dParam : 10,
+	kParam : 1000,
 	resistor : "NONE",
 	chargeSet : false
 }
@@ -104,8 +104,8 @@ tLine4 = {
 	type : "tLine",
 	conA : "connector1",
 	conB : "powerConsumer2",
-	dParam : 1,
-	kParam : 2000,
+	dParam : 10,
+	kParam : 1000,
 	resistor : "NONE",
 	chargeSet : false
 }
