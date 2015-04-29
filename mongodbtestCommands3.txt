@@ -13,7 +13,7 @@ powerSupply1 = {
 	chargeSupplied : 100,
 	location : {x: 200, y: 200},
 	connections : ["tLine1"],
-	charges : [],
+	charges : [{supply: "powerSupplyTest", charge: 0}],
 	chargeSet : false
 }
 
@@ -39,7 +39,7 @@ battery1 = {
 	chargeSupplied : 100,
 	consumerCharge: 100,
 	location : {x: 500, y: 200},
-	connections : ["tLine1", "tLine2", "connector1"],
+	connections : ["tLine1", "tLine2", "tLine3"],
 	charges : [],
 	chargeSet : false
 }
@@ -93,7 +93,7 @@ connector1 = {
 	_id : "connector1",
 	type: "connector",
 	location: {x: 500, y: 400},
-	connections : ["battery1", "powerConsumer2"],
+	connections : ["tLine3", "tLine4"],
 	charges : [],
 	chargeSet : false
 }

@@ -30,16 +30,36 @@ block content
         button(data-ng-click="networkData.drawNetworkClick(item, $event)")#drawCanvas.
           Draw Canvas
     canvas#canvas
-    div#networkData
+    div#powerSupplies
       p powerSupplies
         ul
-          li(ng-repeat="supply in networkData.powerSupplies").
-            {{supply}}
-    div#networkData
-      p
+          li(data-ng-repeat="mySupply in networkData.powerSupplies").
+            {{mySupply}}
+    div#powerConsumers
+      p powerConsumers
         ul
-          li(ng-repeat="item in networkData.data").
-            {{item}}
+          li(ng-repeat="consumer in networkData.powerConsumers").
+            {{consumer}}
+    div#batteries
+      p batteries
+        ul
+          li(ng-repeat="battery in networkData.batteries").
+            {{battery}}
+    div#connectors
+      p connectors
+        ul
+          li(ng-repeat="connector in networkData.connectors").
+            {{connector}}
+    div#resistors
+      p resistors
+        ul
+          li(ng-repeat="resistor in networkData.resistors").
+            {{resistor}}
+    div#transmissionLines
+      p transmissionLines
+        ul
+          li(ng-repeat="tLine in networkData.transmissionLines").
+            {{tLine}}
     
     
  

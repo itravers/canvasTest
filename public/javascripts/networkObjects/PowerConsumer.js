@@ -15,7 +15,12 @@ PowerConsumer.prototype = {
 			this.consuerCharge = consumerCharge;
 		},
 		distributeCharge:function(){  
-			this.prototype.distributeCharge();
+			var charge = this.getChargeSupplied();
+			this.prototype.distributeCharge(this, charge);
+			//this.prototype.distributeCharge();
+		},
+		distributeCharge:function(supply, charge){  
+			this.prototype.distributeCharge(supply, charge);
 		},
 		getLocation:function(){
 			return this.prototype.getLocation();

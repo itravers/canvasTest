@@ -14,6 +14,28 @@ function TransmissionLine (p){
 }
 TransmissionLine.prototype = {    
 		constructor: TransmissionLine,
+		distributeCharge:function(supply, charge){  
+			if(this.chargeSet != true){//this has already been charged, ignore it if so
+				var newCharge = this.calculateTransfer(charge, this.conA, this.conB);
+				var con = this.getFirstUnchargedConnector();
+				if(con == undefined) return; //there are no uncharged connectors on this power line
+				this.chargeSet = true;
+				con.distributeCharge(supply, newCharge);
+			}
+			
+		},
+		calculateTransfer:function(charge, con1, con2){
+			return charge;
+		},
+		getFirstUnchargedConnector:function(){
+			var connectorA = getConnectorFromID(this.conA);
+			var connectorB = getConnectorFromID(this.conB);
+			if(!connectorA.getChargedSet()){
+				return connectorA;
+			}else if(!connectorB.getChargedSet()){
+				return connectorB;
+			}
+		},
 		getResistor:function(){
 			return this.resistor;
 		},
@@ -45,10 +67,10 @@ TransmissionLine.prototype = {
 			this.conB = conB;
 		},
 		getChargedSet:function(){
-			return this.prototype.getChargedSet();
+			return this.chargeSet;
 		},
 		setChargedSet:function(chargedSet){
-			this.prototype.setChargedSet(chargedSet);
+			this.chargeSet = chargedSet;
 		},
 		setID:function(id){
 			this._id = id;

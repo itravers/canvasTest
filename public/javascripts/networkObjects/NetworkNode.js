@@ -13,9 +13,48 @@ function NetworkNode (p){
 }
 NetworkNode.prototype = {    
 		constructor: NetworkNode,    
-		distributeCharge:function(){        
-			alert(this._id+"dist Charge");
+		distributeCharge:function(supply, charge){
+			if(!this.getChargedSet()){//this node hasn't already been charged and distributed
+				var numCon = this.getConnections().length;
+				this.setCharge(supply, charge);
+				//var newCharge;
+				//if(numCon > 1 && supply != this){
+				//	newCharge = charge / (numCon+1);
+				//}else{
+					var newCharge = charge / numCon;
+				//}
+				
+				for(var i = 0; i < numCon; i++){
+					var conID = this.connections[i];
+				    var con;
+					con = getConnectorFromID(conID);
+					con.distributeCharge(supply, newCharge);
+				}
+			}
+			
 		}, 
+		setCharge:function(supply, charge){
+			//loop through charges to see if there is a supply that matches this one
+			var id = supply.getID();
+			var foundIndex = -1;
+			for(var i = 0; i < this.charges.length; i++){
+				
+				if(this.charges[i].supply == id){
+					foundIndex = i;
+				}
+			}
+			
+			if(foundIndex == -1){//charge has not been found
+				this.charges.push({supply:supply.getID(),
+								   charge:charge});
+			}else{
+				this.charges[foundIndex] = {supply:supply.getID(),
+						   		   charge:charge};
+			}
+			
+			this.chargeSet = true;
+		
+		},
 		getConnections:function(){
 			return this.connections;
 		},
@@ -29,10 +68,10 @@ NetworkNode.prototype = {
 			this.charges = charges;
 		},
 		getChargedSet:function(){
-			return this.chargedSet;
+			return this.chargeSet;
 		},
 		setChargedSet:function(chargedSet){
-			this.chargedSet = chargedSet;
+			this.chargeSet = chargedSet;
 		},
 		getLocation:function(){  
 			return this.location;
@@ -51,6 +90,13 @@ NetworkNode.prototype = {
 	    },
 	    setType:function(type){
 	    	this.type = type;
+	    },
+	    getTotalCharge:function(){
+	    	var totalCharge = 0;
+	    	for(var i = 0; i < this.charges.length; i++){
+	    		totalCharge += this.charges[i].charge;
+	    	}
+	    	return totalCharge;
 	    }
 		
 };

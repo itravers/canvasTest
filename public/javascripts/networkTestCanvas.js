@@ -100,10 +100,13 @@ NetworkTestCanvas.prototype = {
 			var loc = powerSupply.getLocation();
 			var totalPower = powerSupply.getTotalPower();
 			var chargeSupplied = powerSupply.getChargeSupplied();
+			var totalCharge = powerSupply.getTotalCharge();
+			var totalChargeCircleSize = this.map(totalCharge, 0 ,1000,2 ,500 );
 			var totalPowerCircleSize = this.map(totalPower, 0 ,100000,2 ,150 );
 			var chargeSuppliedCircleSize = this.map(chargeSupplied, 0 ,1000,2 ,250 );
 			this.drawCircle(totalPowerCircleSize, loc, "red");
 			this.drawCircle(chargeSuppliedCircleSize, loc, "yellow");
+			this.drawCircle(totalChargeCircleSize, loc, "white");
 		},
 		drawPowerConsumer:function(powerConsumer){
 			var loc = powerConsumer.getLocation();

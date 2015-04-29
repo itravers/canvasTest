@@ -21,8 +21,12 @@ PowerSupply.prototype = {
 		setChargeSupplied:function(charge){
 			this.chargeSupplied = charge;
 		},
+		distributeCharge:function(supply, charge){
+			this.prototype.distributeCharge(supply, charge);
+		},
 		distributeCharge:function(){  
-			this.prototype.distributeCharge();
+			var charge = this.getChargeSupplied();
+			this.prototype.distributeCharge(this, charge);
 		},
 		getLocation:function(){
 			return this.prototype.getLocation();
@@ -62,6 +66,9 @@ PowerSupply.prototype = {
 	    },
 	    setType:function(type){
 	    	this.prototype.setType(type);
+	    }, 
+	    getTotalCharge:function(){
+	    	return this.prototype.getTotalCharge();
 	    }
 
 };

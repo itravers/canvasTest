@@ -24,7 +24,15 @@ app.controller('networkTestCtrl', function($scope, $http, dataService) {
     	$scope.networkData.transmissionLines = objectifyRemoteData(data.transmissionLines);
     	$scope.networkData.connectors = objectifyRemoteData(data.connectors);
     	$scope.networkData.batteries = objectifyRemoteData(data.batteries);
-       // $scope.networkData.data = data;
+    	/*
+    	$scope.networkData.data = [];
+        $scope.networkData.data.push($scope.networkData.powerSupplies);
+        $scope.networkData.data.push($scope.networkData.powerConsumers);
+        $scope.networkData.data.push($scope.networkData.resistors);
+        $scope.networkData.data.push($scope.networkData.transmissionLines);
+        $scope.networkData.data.push($scope.networkData.connectors);
+        $scope.networkData.data.push($scope.networkData.batteries);
+          */ 
     }
     
     //turn data taken from database into objects.
@@ -145,3 +153,26 @@ $(document).ready(function() {
 });
 
 // Functions =============================================================
+function getConnectorFromID(id){
+	var data = repackData(scope.networkData);//scope.networkData.data;
+	for(var i = 0; i < data.length; i++){
+		var list = data[i];
+		for(var n = 0; n < list.length; n++){
+			var item = list[n];
+			if((item.getID() == id)){
+				return item;
+			}
+		}
+	}
+}
+
+function repackData(d){
+	var data = [];
+	data.push(d.powerSupplies);
+	data.push(d.powerConsumers);
+	data.push(d.connectors);
+	data.push(d.transmissionLines);
+	data.push(d.resistors);
+	data.push(d.batteries);
+	return data;
+}
