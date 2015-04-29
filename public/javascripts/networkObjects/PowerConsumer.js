@@ -63,6 +63,9 @@ PowerConsumer.prototype = {
 	    }, 
 	    getTotalCharge:function(){
 	    	return this.prototype.getTotalCharge();
-	    }
+	    }, 
+		setCharge:function(supply, charge){
+			this.prototype.setCharge(supply, charge);
+		}
 
 };

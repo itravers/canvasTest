@@ -45,8 +45,8 @@ NetworkNode.prototype = {
 			}
 			
 			if(foundIndex == -1){//charge has not been found
-				this.charges.push({supply:supply.getID(),
-								   charge:charge});
+				var newCharge = {supply:supply.getID(), charge:charge};
+				this.charges.push(newCharge);
 			}else{
 				this.charges[foundIndex] = {supply:supply.getID(),
 						   		   charge:charge};

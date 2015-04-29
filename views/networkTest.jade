@@ -31,10 +31,39 @@ block content
           Draw Canvas
     canvas#canvas
     div#powerSupplies
-      p powerSupplies
-        ul
-          li(data-ng-repeat="mySupply in networkData.powerSupplies").
-            {{mySupply}}
+        table
+          PowerSupplies
+          thead
+            tr
+              th totalCharge
+              th _id
+              th type
+              th location
+              th totalPower
+              th chargeSupplied
+              th connections
+              th charges
+              th chargeSet
+          tBody
+            tr(data-ng-repeat="supply in networkData.powerSupplies")
+              td
+                {{supply.getTotalCharge()}}
+              td 
+                {{supply.getID()}}
+              td
+                {{supply.getType()}}
+              td 
+                {{supply.getLocation()}}
+              td
+                {{supply.getTotalPower()}}
+              td
+                {{supply.getChargeSupplied()}}
+              td
+                {{supply.getConnections()}}
+              td
+                {{supply.getCharges()}}
+              td
+                {{supply.getChargedSet()}}
     div#powerConsumers
       p powerConsumers
         ul

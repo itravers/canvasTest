@@ -77,7 +77,7 @@ app.controller('networkTestCtrl', function($scope, $http, dataService) {
 
     function calculateNetwork(deltaTime){
     	for(var i = 0; i < $scope.networkData.powerSupplies.length; i++){
-    		$scope.networkData.powerSupplies[i].distributeCharge();
+    		$scope.networkData.powerSupplies[i].distCharge();
     		var d = repackData($scope.networkData);
     		unsetChargeSetOnAll(d);
     	}

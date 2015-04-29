@@ -9,6 +9,9 @@ function PowerSupply (p){
 }
 PowerSupply.prototype = {    
 		constructor: PowerSupply, 
+		setCharge:function(supply, charge){
+			this.prototype.setCharge(supply, charge);
+		},
 		getTotalPower:function(){
 			return this.totalPower;
 		},
@@ -24,7 +27,7 @@ PowerSupply.prototype = {
 		distributeCharge:function(supply, charge){
 			this.prototype.distributeCharge(supply, charge);
 		},
-		distributeCharge:function(){  
+		distCharge:function(){  
 			var charge = this.getChargeSupplied();
 			this.prototype.distributeCharge(this, charge);
 		},

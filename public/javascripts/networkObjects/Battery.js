@@ -13,6 +13,9 @@ Battery.prototype = {
 		getTotalPower:function(){
 			return this.totalPower;
 		},
+		setCharge:function(supply, charge){
+			this.prototype.setCharge(supply, charge);
+		},
 		setTotalPower:function(totalPower){
 			this.totalPower = totalPower;
 		},

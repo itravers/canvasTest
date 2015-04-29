@@ -64,7 +64,7 @@ battery1 = {
 	consumerCharge: 100,
 	location : {x: 500, y: 200},
 	connections : ["tLine1", "tLine2", "tLine3"],
-	charges : [],
+	charges : [{supply: "powerSupplyTest", charge: 0}],
 	chargeSet : false
 }
 db.batteries.insert(battery1)
@@ -96,7 +96,7 @@ powerConsumer1 = {
 	consumerCharge : 100,
 	location : {x : 1000, y : 200},
 	connections : ["tLine2"],
-	charges : [],
+	charges : [{supply: "powerSupplyTest", charge: 0}],
 	chargeSet : false
 }
 db.powerConsumers.insert(powerConsumer1)
@@ -118,7 +118,7 @@ connector1 = {
 	type: "connector",
 	location: {x: 500, y: 400},
 	connections : ["tLine3", "tLine4", "tLine5"],
-	charges : [],
+	charges : [{supply: "powerSupplyTest", charge: 0}],
 	chargeSet : false
 }
 db.connectors.insert(connector1)
@@ -141,7 +141,7 @@ powerConsumer2 = {
 	consumerCharge : 100,
 	location : {x : 500, y : 600},
 	connections : ["tLine4"],
-	charges : [],
+	charges : [{supply: "powerSupplyTest", charge: 0}],
 	chargeSet : false
 }
 db.powerConsumers.insert(powerConsumer2)

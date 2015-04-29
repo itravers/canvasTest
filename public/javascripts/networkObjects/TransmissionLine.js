@@ -18,7 +18,7 @@ TransmissionLine.prototype = {
 			if(this.chargeSet != true){//this has already been charged, ignore it if so
 				var con = this.getFirstUnchargedConnector();
 				var con2ID = this.getOtherConID(con);
-				var newCharge = this.calculateTransfer(charge, con.getID(), con2ID);
+				var newCharge = this.calculateTransfer(charge, con2ID, con.getID()); //from charged to uncharged
 				if(con == undefined) return; //there are no uncharged connectors on this power line
 				this.chargeSet = true;
 				con.distributeCharge(supply, newCharge);
