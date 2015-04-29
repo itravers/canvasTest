@@ -11,22 +11,42 @@ app.controller('networkTestCtrl', function($scope, $http, dataService) {
 	$scope.networkData.data = {};
 	$scope.networkData.getDataClick = loadRemoteData;
 	$scope.networkData.drawNetworkClick = drawNetwork;
+	$scope.networkData.calculateClick = calculateClick;
 	$scope.networkTestCanvas = new NetworkTestCanvas(document.getElementById("canvas"), 1200, 800);
 	
 	loadRemoteData();
 	
     // I apply the remote data to the local scope.
     function applyRemoteData( data ) {
+    	var powerSupplies = data.powerSupplies;
+    	$scope.networkData.powerSupplies = objectifyRemoteData(powerSupplies);
         $scope.networkData.data = data;
     }
     
     //turn data taken from database into objects.
     function objectifyRemoteData(data){
-    	
+    	var objectifiedData = [];
+    	for(var i = 0; i < data.length; i++){
+    		var d = data[i];
+    		if(d.type == "powerSupply"){
+    			var ps = new PowerSupply(d);
+    			objectifiedData.push(ps);
+    			//alert("remote data objectified");
+    		}else if(d.type == "powerConsumer"){
+    			//var pc = new PowerConsumer(d);
+    			//objectifiedData.push(pc);
+    		}
+    	}
+    	//objectifiedData[0].distributeCharge();
+    	return objectifiedData;
     }
     
     function drawNetwork(){
-    	$scope.networkTestCanvas.draw($scope.networkData.data);
+    	$scope.networkTestCanvas.draw($scope.networkData);
+    }
+    
+    function calculateClick(){
+    	$scope.networkData.powerSupplies[0].distributeCharge();
     }
 
     // I load the remote data from the server.
@@ -35,9 +55,10 @@ app.controller('networkTestCtrl', function($scope, $http, dataService) {
     	dataService.getData()
             .then(
                 function( data ) {
-                    //applyRemoteData( data );
+                    applyRemoteData( data );
+                	data = objectifyRemoteData(data);
                 	//$scope.networkData.data = data;
-                	objectifyRemoteDate(data);
+                	
                 	drawNetwork();
                 }
             )

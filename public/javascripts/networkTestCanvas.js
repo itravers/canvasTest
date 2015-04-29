@@ -24,11 +24,11 @@ NetworkTestCanvas.prototype = {
 			this.ctx.fillStyle = color;
 			this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
 		},
-		draw:function(data){
+		draw:function(networkData){
 			//var scope = angular.element($("#networkTestApp")).scope();
 			ctx = this.canvas.getContext("2d");
 			this.fillBackground("black");
-				this.drawNetworkData(data);
+				this.drawNetworkData(networkData);
 			
 		},
 		getMidPoint:function(locA, locB){
@@ -40,11 +40,11 @@ NetworkTestCanvas.prototype = {
 		map:function (num, in_min ,in_max ,out_min ,out_max ) {
 			  return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 		},
-		drawNetworkData:function(data){
-			//var data = datum.data;
+		drawNetworkData:function(networkData){
+			var data = networkData.data;
 			if(data != undefined){
 				var supplies = 0;
-				supplies = data.powerSupplies;
+				supplies = networkData.powerSupplies;
 				var powerConsumers = data.powerConsumers;
 				var connectors = data.connectors;
 				var transmissionLines = data.transmissionLines;
@@ -105,7 +105,7 @@ NetworkTestCanvas.prototype = {
 			this.drawCircle(consumerChargeSize, loc, "blue");
 		},
 		drawPowerSupply:function(powerSupply){
-			var loc = powerSupply.location;
+			var loc = powerSupply.getLocation();
 			var totalPower = powerSupply.totalPower;
 			var chargeSupplied = powerSupply.chargeSupplied;
 			var totalPowerCircleSize = this.map(totalPower, 0 ,100000,2 ,150 );

@@ -3,6 +3,8 @@ extends layout
 block content
   script(src='/javascripts/jquery.min.js')
   script(src='/javascripts/angular.js')
+  script(src='/javascripts/networkObjects/NetworkNode.js')
+  script(src='/javascripts/networkObjects/PowerSupply.js')
   script(src='/javascripts/networkTest.js')
   script(src='/javascripts/networkTestCanvas.js')
   div#networkTestApp(data-ng-app="networkTestApp", data-ng-controller="networkTestCtrl")
@@ -13,7 +15,7 @@ block content
       form(name="calculate", data-ng-init="timeElapsed='1000'")
         input(type="range", min="1", max="1000", value="1000", name="timePassed", id="timePassed", data-ng-model="timeElapsed").
         p {{timeElapsed}} 
-      button#calculate.
+      button(data-ng-click="networkData.calculateClick()")#calculate.
         Calculate
     div.getData
       form(name="getData")
@@ -24,6 +26,11 @@ block content
         button(data-ng-click="networkData.drawNetworkClick(item, $event)")#drawCanvas.
           Draw Canvas
     canvas#canvas
+    div#networkData
+      p powerSupplies
+        ul
+          li(ng-repeat="supply in networkData.powerSupplies").
+            {{supply}}
     div#networkData
       p
         ul
