@@ -70,10 +70,21 @@ app.controller('networkTestCtrl', function($scope, $http, dataService) {
     }
     
     function calculateClick(){
-    	$scope.networkData.powerSupplies[0].distributeCharge();
-    	drawNetwork();
+    	//setTimeout(function() { calculateNetwork(200); }, 200);
+    	calculateNetwork();
+    	
     }
 
+    function calculateNetwork(deltaTime){
+    	for(var i = 0; i < $scope.networkData.powerSupplies.length; i++){
+    		$scope.networkData.powerSupplies[i].distributeCharge();
+    		var d = repackData($scope.networkData);
+    		unsetChargeSetOnAll(d);
+    	}
+    	
+    	drawNetwork();
+    	//setTimeout(function() { calculateNetwork(200); }, 200);
+    }
     // I load the remote data from the server.
     function loadRemoteData() {
         // The friendService returns a promise.
@@ -176,4 +187,19 @@ function repackData(d){
 	data.push(d.resistors);
 	data.push(d.batteries);
 	return data;
+}
+
+function unsetChargeSetOnAll(d){
+	for(var i = 0; i < d.length; i++){
+		var l = d[i];
+		for(var j = 0; j < l.length; j++){
+			var obj = l[j];
+			if(obj.getType() == "resistor" || obj.getType()== "tLine"){
+				
+			}else{
+				obj.setChargedSet(false);
+			}
+			
+		}
+	}
 }

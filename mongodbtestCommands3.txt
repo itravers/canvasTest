@@ -19,6 +19,30 @@ powerSupply1 = {
 
 db.powerSupplies.insert(powerSupply1);
 
+powerSupply2 = {
+	_id : "powerSupply2",
+	type : "powerSupply",
+	totalPower : 100000,
+	chargeSupplied : 1000,
+	location : {x: 1000, y: 700},
+	connections : ["tLine5"],
+	charges : [{supply: "powerSupplyTest", charge: 0}],
+	chargeSet : false
+}
+
+db.powerSupplies.insert(powerSupply2);
+tLine5 = {
+	_id : "tLine5",
+	type : "tLine",
+	conA : "connector1",
+	conB : "powerSupply2",
+	dParam : 10,
+	kParam : 1000,
+	resistor : "NONE",
+	chargeSet : false
+}
+db.transmissionLines.insert(tLine5)
+
 tLine1 = {
 	_id : "tLine1",
 	type : "tLine",
@@ -93,7 +117,7 @@ connector1 = {
 	_id : "connector1",
 	type: "connector",
 	location: {x: 500, y: 400},
-	connections : ["tLine3", "tLine4"],
+	connections : ["tLine3", "tLine4", "tLine5"],
 	charges : [],
 	chargeSet : false
 }
