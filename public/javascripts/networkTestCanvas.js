@@ -49,7 +49,7 @@ NetworkTestCanvas.prototype = {
 				var connectors = networkData.connectors;
 				var transmissionLines = data.transmissionLines;
 				var resistors = data.resistors;
-				var batteries = data.batteries;
+				var batteries = networkData.batteries;
 				data = [];
 				data.push(supplies);
 				data.push(powerConsumers);
@@ -89,10 +89,10 @@ NetworkTestCanvas.prototype = {
 			//alert(JSON.stringify(data));
 		},
 		drawBattery:function(battery){
-			var loc = battery.location;
-			var totalPower = battery.totalPower;
-			var chargeSupplied = battery.chargeSupplied;
-			var consumerCharge = battery.consumerCharge;
+			var loc = battery.getLocation();
+			var totalPower = battery.getTotalPower();
+			var chargeSupplied = battery.getChargeSupplied();
+			var consumerCharge = battery.getConsumerCharge();
 			var chargeSuppliedCircleSize = this.map(chargeSupplied, 0 ,1000,2 ,250 );
 			var totalPowerCircleSize = this.map(totalPower, 0 ,100000,2 ,250 );
 			var consumerChargeSize = this.map(consumerCharge, 0 ,1000 ,2 ,200 );
