@@ -47,8 +47,8 @@ NetworkTestCanvas.prototype = {
 				supplies = networkData.powerSupplies;
 				var powerConsumers = networkData.powerConsumers;
 				var connectors = networkData.connectors;
-				var transmissionLines = data.transmissionLines;
-				var resistors = data.resistors;
+				var transmissionLines = networkData.transmissionLines;
+				var resistors = networkData.resistors;
 				var batteries = networkData.batteries;
 				data = [];
 				data.push(supplies);
@@ -67,24 +67,24 @@ NetworkTestCanvas.prototype = {
 			}
 		},
 		drawResistor:function(r, data){
-			var tLineID = r.tLine;
+			var tLineID = r.getTLine();
 			var tLine = this.getConnectorFromID(tLineID, data);
-			var conAID = tLine.conA;
-			var conBID = tLine.conB;
+			var conAID = tLine.getConA();
+			var conBID = tLine.getConB();
 			var conA = this.getConnectorFromID(conAID, data);
 			var conB = this.getConnectorFromID(conBID, data);
-			var locA = conA.location;
-			var locB = conB.location;
+			var locA = conA.getLocation();
+			var locB = conB.getLocation();
 			var loc = this.getMidPoint(locA, locB);
 			this.drawSquare("pink", loc, 10);
 		},
 		drawTransmissionLine:function(tLine, data){
-			var conAID = tLine.conA;
-			var conBID = tLine.conB;
+			var conAID = tLine.getConA();
+			var conBID = tLine.getConB();
 			var conA = this.getConnectorFromID(conAID, data);
 			var conB = this.getConnectorFromID(conBID, data);
-			var locA = conA.location;
-			var locB = conB.location;
+			var locA = conA.getLocation();
+			var locB = conB.getLocation();
 			this.drawLine("yellow", locA, locB);
 			//alert(JSON.stringify(data));
 		},
@@ -148,7 +148,7 @@ NetworkTestCanvas.prototype = {
 				var list = data[i];
 				for(var n = 0; n < list.length; n++){
 					var item = list[n];
-					if(item._id == id || (item.getID != undefined && item.getID() == id)){
+					if((item.getID() == id)){
 						return item;
 					}
 				}

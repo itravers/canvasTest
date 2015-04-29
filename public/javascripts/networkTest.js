@@ -20,6 +20,8 @@ app.controller('networkTestCtrl', function($scope, $http, dataService) {
     function applyRemoteData( data ) {
     	$scope.networkData.powerSupplies = objectifyRemoteData(data.powerSupplies);
     	$scope.networkData.powerConsumers = objectifyRemoteData(data.powerConsumers);
+    	$scope.networkData.resistors = objectifyRemoteData(data.resistors);
+    	$scope.networkData.transmissionLines = objectifyRemoteData(data.transmissionLines);
     	$scope.networkData.connectors = objectifyRemoteData(data.connectors);
     	$scope.networkData.batteries = objectifyRemoteData(data.batteries);
         $scope.networkData.data = data;
@@ -43,6 +45,12 @@ app.controller('networkTestCtrl', function($scope, $http, dataService) {
     		}else if(d.type == "battery"){
     			var b = new Battery(d);
     			objectifiedData.push(b);
+    		}else if(d.type == "tLine"){
+    			var tLine = new TransmissionLine(d);
+    			objectifiedData.push(tLine);
+    		}else if(d.type == "resistor"){
+    			var r = new Resistor(d);
+    			objectifiedData.push(r);
     		}
     	}
     	//objectifiedData[0].distributeCharge();

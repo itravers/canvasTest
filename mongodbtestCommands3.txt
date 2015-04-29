@@ -59,6 +59,7 @@ db.transmissionLines.insert(tLine2)
 
 resistor1 = {
 	_id : "resistor1",
+	type: "resistor",
 	tLine : "tLine2",
 	dParam : 2,
 	kParam : 2000
