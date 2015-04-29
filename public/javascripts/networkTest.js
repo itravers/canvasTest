@@ -20,6 +20,7 @@ app.controller('networkTestCtrl', function($scope, $http, dataService) {
     function applyRemoteData( data ) {
     	var powerSupplies = data.powerSupplies;
     	$scope.networkData.powerSupplies = objectifyRemoteData(powerSupplies);
+    	$scope.networkData.powerConsumers = objectifyRemoteData(data.powerConsumers);
         $scope.networkData.data = data;
     }
     
@@ -33,8 +34,8 @@ app.controller('networkTestCtrl', function($scope, $http, dataService) {
     			objectifiedData.push(ps);
     			//alert("remote data objectified");
     		}else if(d.type == "powerConsumer"){
-    			//var pc = new PowerConsumer(d);
-    			//objectifiedData.push(pc);
+    			var pc = new PowerConsumer(d);
+    			objectifiedData.push(pc);
     		}
     	}
     	//objectifiedData[0].distributeCharge();
@@ -56,7 +57,7 @@ app.controller('networkTestCtrl', function($scope, $http, dataService) {
             .then(
                 function( data ) {
                     applyRemoteData( data );
-                	data = objectifyRemoteData(data);
+                	//data = objectifyRemoteData(data);
                 	//$scope.networkData.data = data;
                 	
                 	drawNetwork();

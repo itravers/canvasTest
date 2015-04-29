@@ -45,7 +45,7 @@ NetworkTestCanvas.prototype = {
 			if(data != undefined){
 				var supplies = 0;
 				supplies = networkData.powerSupplies;
-				var powerConsumers = data.powerConsumers;
+				var powerConsumers = networkData.powerConsumers;
 				var connectors = data.connectors;
 				var transmissionLines = data.transmissionLines;
 				var resistors = data.resistors;
@@ -110,8 +110,8 @@ NetworkTestCanvas.prototype = {
 			this.drawCircle(chargeSuppliedCircleSize, loc, "yellow");
 		},
 		drawPowerConsumer:function(powerConsumer){
-			var loc = powerConsumer.location;
-			var consumerCharge = powerConsumer.consumerCharge;
+			var loc = powerConsumer.getLocation();
+			var consumerCharge = powerConsumer.getConsumerCharge();
 			var consumerChargeSize = this.map(consumerCharge, 0 ,1000,2 ,250 );
 			this.drawCircle(consumerChargeSize, loc, "blue");
 		},
