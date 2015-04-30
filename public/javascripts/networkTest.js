@@ -194,7 +194,7 @@ function unsetChargeSetOnAll(d){
 		var l = d[i];
 		for(var j = 0; j < l.length; j++){
 			var obj = l[j];
-			if(obj.getType() == "resistor" || obj.getType()== "tLine"){
+			if(obj.getType() == "resistor"){
 				
 			}else{
 				obj.setChargedSet(false);
