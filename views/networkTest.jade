@@ -155,33 +155,81 @@ block content
               th charges
               th chargeSet
           tBody
-            tr(data-ng-repeat="battery in networkData.batteries")
+            tr(data-ng-repeat="connector in networkData.connectors")
               td
-                {{battery.getTotalCharge()}}
+                {{connector.getTotalCharge()}}
               td 
-                {{battery.getID()}}
+                {{connector.getID()}}
               td
-                {{battery.getType()}}
+                {{connector.getType()}}
               td 
-                {{battery.getLocation()}}
+                {{connector.getLocation()}}
               td
-                {{battery.getConnections()}}
+                {{connector.getConnections()}}
               td
-                div(data-ng-repeat="charge in battery.getCharges()")
+                div(data-ng-repeat="charge in connector.getCharges()")
                   {{charge}}
               td
-                {{battery.getChargedSet()}}
+                {{connector.getChargedSet()}}
               br
     div#resistors
-      p resistors
-        ul
-          li(ng-repeat="resistor in networkData.resistors").
-            {{resistor}}
-    div#transmissionLines
-      p transmissionLines
-        ul
-          li(ng-repeat="tLine in networkData.transmissionLines").
-            {{tLine}}
+        table
+          Resistors
+          thead
+            caption Resistors Table
+            tr
+              th _id
+              th type
+              th tLine
+              th dParam
+              th kParam
+          tBody
+            tr(data-ng-repeat="resistor in networkData.resistors")
+              td 
+                {{resistor.getID()}}
+              td
+                {{resistor.getType()}}
+              td
+                {{resistor.getTLine()}}
+              td
+                {{resistor.getDParam()}}
+              td
+                {{resistor.getKParam()}}
+              br
+     div#transmissionLines
+        table
+          TransmissionLines
+          thead
+            caption Transmission Lines Table
+            tr
+              th _id
+              th type
+              th conA
+              th conB
+              th dParam
+              th kParam
+              th resistor
+              th chargeSet
+          tBody
+            tr(data-ng-repeat="tLine in networkData.transmissionLines")
+              td 
+                {{tLine.getID()}}
+              td
+                {{tLine.getType()}}
+              td
+                {{tLine.getConA()}}
+              td
+                {{tLine.getConB()}}
+              td
+                {{tLine.getDParam()}}
+              td
+                {{tLine.getKParam()}}
+              td
+                {{tLine.getResistor()}}
+              td
+                {{tLine.getChargedSet()}}
+              br
+              
     
     
  
