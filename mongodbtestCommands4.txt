@@ -74,6 +74,247 @@ c2 = {
 }
 db.connectors.insert(c2)
 
+c3 = {
+	_id : "c3",
+	type: "connector",
+	location: {x: 250, y: 575},
+	connections : ["t3", "t11", "t12", "t13"],
+	charges : [{supply: "powerSupplyTest", charge: 0}],
+	chargeSet : false
+}
+db.connectors.insert(c3)
 
+c4 = {
+	_id : "c4",
+	type: "connector",
+	location: {x: 850, y: 575},
+	connections : ["t4", "t14", "t15", "t16"],
+	charges : [{supply: "powerSupplyTest", charge: 0}],
+	chargeSet : false
+}
+db.connectors.insert(c4)
 
+pc1 = {
+	_id : "pc1",
+	type : "powerConsumer",
+	consumerCharge : 100,
+	location : {x : 550, y : 150},
+	connections : ["t5", "t8", "t11", "t14"],
+	charges : [{supply: "powerSupplyTest", charge: 0}],
+	chargeSet : false
+}
+db.powerConsumers.insert(pc1)
 
+pc2 = {
+	_id : "pc2",
+	type : "powerConsumer",
+	consumerCharge : 100,
+	location : {x : 400, y : 400},
+	connections : ["t7", "t9", "t12", "t16"],
+	charges : [{supply: "powerSupplyTest", charge: 0}],
+	chargeSet : false
+}
+db.powerConsumers.insert(pc2)
+
+pc3 = {
+	_id : "pc3",
+	type : "powerConsumer",
+	consumerCharge : 100,
+	location : {x : 700, y : 400},
+	connections : ["t6", "t10", "t13", "t15"],
+	charges : [{supply: "powerSupplyTest", charge: 0}],
+	chargeSet : false
+}
+db.powerConsumers.insert(pc3)
+
+t1 = {
+	_id : "t1",
+	type : "tLine",
+	conA : "p1",
+	conB : "c1",
+	dParam : 3,
+	kParam : 1000,
+	resistor : "NONE",
+	chargeSet : false
+}
+db.transmissionLines.insert(t1)
+
+t2 = {
+	_id : "t2",
+	type : "tLine",
+	conA : "p2",
+	conB : "c2",
+	dParam : 3,
+	kParam : 1000,
+	resistor : "NONE",
+	chargeSet : false
+}
+db.transmissionLines.insert(t2)
+
+t3 = {
+	_id : "t3",
+	type : "tLine",
+	conA : "p3",
+	conB : "c3",
+	dParam : 3,
+	kParam : 1000,
+	resistor : "NONE",
+	chargeSet : false
+}
+db.transmissionLines.insert(t3)
+
+t4 = {
+	_id : "t4",
+	type : "tLine",
+	conA : "p4",
+	conB : "c4",
+	dParam : 3,
+	kParam : 1000,
+	resistor : "NONE",
+	chargeSet : false
+}
+db.transmissionLines.insert(t4)
+
+t5 = {
+	_id : "t5",
+	type : "tLine",
+	conA : "c1",
+	conB : "pc1",
+	dParam : 3,
+	kParam : 1000,
+	resistor : "NONE",
+	chargeSet : false
+}
+db.transmissionLines.insert(t5)
+
+t6 = {
+	_id : "t6",
+	type : "tLine",
+	conA : "c1",
+	conB : "pc3",
+	dParam : 3,
+	kParam : 1000,
+	resistor : "NONE",
+	chargeSet : false
+}
+db.transmissionLines.insert(t6)
+
+t7 = {
+	_id : "t7",
+	type : "tLine",
+	conA : "c1",
+	conB : "pc2",
+	dParam : 3,
+	kParam : 1000,
+	resistor : "NONE",
+	chargeSet : false
+}
+db.transmissionLines.insert(t7)
+
+t8 = {
+	_id : "t8",
+	type : "tLine",
+	conA : "pc1",
+	conB : "c2",
+	dParam : 3,
+	kParam : 1000,
+	resistor : "NONE",
+	chargeSet : false
+}
+db.transmissionLines.insert(t8)
+
+t9 = {
+	_id : "t9",
+	type : "tLine",
+	conA : "pc2",
+	conB : "c2",
+	dParam : 3,
+	kParam : 1000,
+	resistor : "NONE",
+	chargeSet : false
+}
+db.transmissionLines.insert(t9)
+
+t10 = {
+	_id : "t10",
+	type : "tLine",
+	conA : "pc3",
+	conB : "c2",
+	dParam : 3,
+	kParam : 1000,
+	resistor : "NONE",
+	chargeSet : false
+}
+db.transmissionLines.insert(t10)
+
+t11 = {
+	_id : "t11",
+	type : "tLine",
+	conA : "pc1",
+	conB : "c3",
+	dParam : 3,
+	kParam : 1000,
+	resistor : "NONE",
+	chargeSet : false
+}
+db.transmissionLines.insert(t11)
+
+t12 = {
+	_id : "t12",
+	type : "tLine",
+	conA : "pc2",
+	conB : "c3",
+	dParam : 3,
+	kParam : 1000,
+	resistor : "NONE",
+	chargeSet : false
+}
+db.transmissionLines.insert(t12)
+
+t13 = {
+	_id : "t13",
+	type : "tLine",
+	conA : "pc3",
+	conB : "c3",
+	dParam : 3,
+	kParam : 1000,
+	resistor : "NONE",
+	chargeSet : false
+}
+db.transmissionLines.insert(t13)
+
+t14 = {
+	_id : "t14",
+	type : "tLine",
+	conA : "pc1",
+	conB : "c4",
+	dParam : 3,
+	kParam : 1000,
+	resistor : "NONE",
+	chargeSet : false
+}
+db.transmissionLines.insert(t14)
+
+t15 = {
+	_id : "t15",
+	type : "tLine",
+	conA : "pc3",
+	conB : "c4",
+	dParam : 3,
+	kParam : 1000,
+	resistor : "NONE",
+	chargeSet : false
+}
+db.transmissionLines.insert(t15)
+
+t16 = {
+	_id : "t16",
+	type : "tLine",
+	conA : "pc2",
+	conB : "c4",
+	dParam : 3,
+	kParam : 1000,
+	resistor : "NONE",
+	chargeSet : false
+}
+db.transmissionLines.insert(t16)

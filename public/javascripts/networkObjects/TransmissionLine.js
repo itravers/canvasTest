@@ -17,13 +17,13 @@ TransmissionLine.prototype = {
 		distributeCharge:function(supply, charge){  
 			if(this.chargeSet != true){//this has already been charged, ignore it if so
 				var con = this.getFirstUnchargedConnector();
-				var con2ID = this.getOtherConID(con);
-				var newCharge = this.calculateTransfer(charge, con2ID, con.getID()); //from charged to uncharged
-				if(con == undefined) return; //there are no uncharged connectors on this power line
 				this.chargeSet = true;
-				con.distributeCharge(supply, newCharge);
+				if(con != undefined){//if tLine is connecting to something that has already been charged con will be undefined here
+					var con2ID = this.getOtherConID(con);
+					var newCharge = this.calculateTransfer(charge, con2ID, con.getID()); //from charged to uncharged
+					con.distributeCharge(supply, newCharge);
+				}
 			}
-			
 		},
 		calculateTransfer:function(charge, con1ID, con2ID){
 			var connectorA = getConnectorFromID(this.conA);
