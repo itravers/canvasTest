@@ -1,0 +1,79 @@
+db.nodes.drop()
+db.powerSupplies.drop()
+db.powerConsumers.drop()
+db.transmissionLines.drop()
+db.batteries.drop()
+db.resistors.drop()
+db.connectors.drop()
+
+p1 = {
+	_id : "p1",
+	type : "powerSupply",
+	totalPower : 10000,
+	chargeSupplied : 100,
+	location : {x: 50, y: 50},
+	connections : ["t1"],
+	charges : [{supply: "powerSupplyTest", charge: 0}],
+	chargeSet : false
+}
+db.powerSupplies.insert(p1);
+
+p2 = {
+	_id : "p2",
+	type : "powerSupply",
+	totalPower : 10000,
+	chargeSupplied : 100,
+	location : {x: 1150, y: 50},
+	connections : ["t2"],
+	charges : [{supply: "powerSupplyTest", charge: 0}],
+	chargeSet : false
+}
+db.powerSupplies.insert(p2);
+
+p3 = {
+	_id : "p3",
+	type : "powerSupply",
+	totalPower : 10000,
+	chargeSupplied : 100,
+	location : {x: 50, y: 750},
+	connections : ["t3"],
+	charges : [{supply: "powerSupplyTest", charge: 0}],
+	chargeSet : false
+}
+db.powerSupplies.insert(p3);
+
+p4 = {
+	_id : "p4",
+	type : "powerSupply",
+	totalPower : 10000,
+	chargeSupplied : 100,
+	location : {x: 1150, y: 750},
+	connections : ["t4"],
+	charges : [{supply: "powerSupplyTest", charge: 0}],
+	chargeSet : false
+}
+db.powerSupplies.insert(p4);
+
+c1 = {
+	_id : "c1",
+	type: "connector",
+	location: {x: 250, y: 175},
+	connections : ["t1", "t5", "t6", "t7"],
+	charges : [{supply: "powerSupplyTest", charge: 0}],
+	chargeSet : false
+}
+db.connectors.insert(c1)
+
+c2 = {
+	_id : "c2",
+	type: "connector",
+	location: {x: 850, y: 175},
+	connections : ["t2", "t8", "t9", "t10"],
+	charges : [{supply: "powerSupplyTest", charge: 0}],
+	chargeSet : false
+}
+db.connectors.insert(c2)
+
+
+
+

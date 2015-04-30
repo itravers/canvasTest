@@ -28,7 +28,10 @@ NetworkNode.prototype = {
 					var conID = this.connections[i];
 				    var con;
 					con = getConnectorFromID(conID);
-					con.distributeCharge(supply, newCharge);
+					if(con != undefined){ // if a power supply hasn't been connected to anything it will be undefined here
+						con.distributeCharge(supply, newCharge);
+					}
+					
 				}
 			}
 			
