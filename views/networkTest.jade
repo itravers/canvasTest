@@ -34,6 +34,7 @@ block content
         table
           PowerSupplies
           thead
+            caption Power Supplies Table
             tr
               th totalCharge
               th _id
@@ -61,19 +62,85 @@ block content
               td
                 {{supply.getConnections()}}
               td
-                {{supply.getCharges()}}
+                div(data-ng-repeat="charge in supply.getCharges()")
+                  {{charge}}
               td
                 {{supply.getChargedSet()}}
+              br
     div#powerConsumers
-      p powerConsumers
-        ul
-          li(ng-repeat="consumer in networkData.powerConsumers").
-            {{consumer}}
+        table
+          PowerConsumers
+          thead
+            caption Power Consumers Table
+            tr
+              th totalCharge
+              th _id
+              th type
+              th location
+              th consumerCharge
+              th connections
+              th charges
+              th chargeSet
+          tBody
+            tr(data-ng-repeat="consumer in networkData.powerConsumers")
+              td
+                {{consumer.getTotalCharge()}}
+              td 
+                {{consumer.getID()}}
+              td
+                {{consumer.getType()}}
+              td 
+                {{consumer.getLocation()}}
+              td
+                {{consumer.getConsumerCharge()}}
+              td
+                {{consumer.getConnections()}}
+              td
+                div(data-ng-repeat="charge in consumer.getCharges()")
+                  {{charge}}
+              td
+                {{consumer.getChargedSet()}}
+              br
     div#batteries
-      p batteries
-        ul
-          li(ng-repeat="battery in networkData.batteries").
-            {{battery}}
+        table
+          Batteries
+          thead
+            caption Batteries Table
+            tr
+              th totalCharge
+              th _id
+              th type
+              th location
+              th totalPower
+              th chargeSupplied
+              th consumerCharge
+              th connections
+              th charges
+              th chargeSet
+          tBody
+            tr(data-ng-repeat="battery in networkData.batteries")
+              td
+                {{battery.getTotalCharge()}}
+              td 
+                {{battery.getID()}}
+              td
+                {{battery.getType()}}
+              td 
+                {{battery.getLocation()}}
+              td
+                {{battery.getTotalPower()}}
+              td
+                {{battery.getChargeSupplied()}}
+              td
+                {{battery.getConsumerCharge()}}
+              td
+                {{battery.getConnections()}}
+              td
+                div(data-ng-repeat="charge in battery.getCharges()")
+                  {{charge}}
+              td
+                {{battery.getChargedSet()}}
+              br
     div#connectors
       p connectors
         ul
