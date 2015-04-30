@@ -14,7 +14,7 @@ function NetworkNode (p){
 NetworkNode.prototype = {    
 		constructor: NetworkNode,    
 		distributeCharge:function(supply, charge){
-			if(!this.getChargedSet()){//this node hasn't already been charged and distributed
+			if(!this.getChargedSet() || currentSupplyBeingDistributed == this){//this node hasn't already been charged and distributed
 				var numCon = this.getConnections().length;
 				this.setCharge(supply, charge);
 				var newCharge;
@@ -31,7 +31,9 @@ NetworkNode.prototype = {
 					if(con != undefined){ // if a power supply hasn't been connected to anything it will be undefined here
 						con.distributeCharge(supply, newCharge);
 					}
-					
+					if(currentSupplyBeingDistributed == this){//we want to calculate the entire network for each node connected to a power supply
+						unsetChargeSetOnAll(); // so we unset the entire network here if it is?
+					}
 				}
 			}
 			

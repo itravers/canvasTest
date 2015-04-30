@@ -14,7 +14,8 @@ PowerConsumer.prototype = {
 		setConsumerCharge:function(consumerCharge){
 			this.consuerCharge = consumerCharge;
 		},
-		distributeCharge:function(){  
+		distributeCharge:function(){
+			currentSupplyBeingDistributed = this;
 			var charge = this.getChargeSupplied();
 			this.prototype.distributeCharge(this, charge);
 			//this.prototype.distributeCharge();

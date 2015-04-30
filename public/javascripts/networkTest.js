@@ -1,6 +1,8 @@
 
 var scope;
 var dataService;
+var currentSupplyBeingDistributed; //used to make sure each node of a power supply
+									//gets processed correctly?
 //var networkTestCanvas;
 
 var app = angular.module("networkTestApp", []); 
@@ -13,7 +15,7 @@ app.controller('networkTestCtrl', function($scope, $http, dataService) {
 	$scope.networkData.drawNetworkClick = drawNetwork;
 	$scope.networkData.calculateClick = calculateClick;
 	$scope.networkTestCanvas = new NetworkTestCanvas(document.getElementById("canvas"), 1200, 800);
-	
+	scope = $scope;
 	loadRemoteData();
 	
     // I apply the remote data to the local scope.
@@ -78,8 +80,7 @@ app.controller('networkTestCtrl', function($scope, $http, dataService) {
     function calculateNetwork(deltaTime){
     	for(var i = 0; i < $scope.networkData.powerSupplies.length; i++){
     		$scope.networkData.powerSupplies[i].distCharge();
-    		var d = repackData($scope.networkData);
-    		unsetChargeSetOnAll(d);
+    		unsetChargeSetOnAll();
     	}
     	
     	drawNetwork();
@@ -189,7 +190,8 @@ function repackData(d){
 	return data;
 }
 
-function unsetChargeSetOnAll(d){
+function unsetChargeSetOnAll(){
+	var d = repackData(scope.networkData);
 	for(var i = 0; i < d.length; i++){
 		var l = d[i];
 		for(var j = 0; j < l.length; j++){
