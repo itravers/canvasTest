@@ -142,10 +142,36 @@ block content
                 {{battery.getChargedSet()}}
               br
     div#connectors
-      p connectors
-        ul
-          li(ng-repeat="connector in networkData.connectors").
-            {{connector}}
+        table
+          Connectors
+          thead
+            caption Connectors Table
+            tr
+              th totalCharge
+              th _id
+              th type
+              th location
+              th connections
+              th charges
+              th chargeSet
+          tBody
+            tr(data-ng-repeat="battery in networkData.batteries")
+              td
+                {{battery.getTotalCharge()}}
+              td 
+                {{battery.getID()}}
+              td
+                {{battery.getType()}}
+              td 
+                {{battery.getLocation()}}
+              td
+                {{battery.getConnections()}}
+              td
+                div(data-ng-repeat="charge in battery.getCharges()")
+                  {{charge}}
+              td
+                {{battery.getChargedSet()}}
+              br
     div#resistors
       p resistors
         ul
